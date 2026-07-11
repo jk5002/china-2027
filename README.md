@@ -2,7 +2,7 @@
 
 A single-page, self-contained interactive feature comparing **seven 14-day China adventure
 itineraries** (all 24 Oct – 6 Nov, all starting in Hong Kong + Shenzhen and flying home via a
-Qatar Airways hub). Pick a trip and the whole page re-themes: hero, animated route map,
+major Chinese city). Pick a trip and the whole page re-themes: hero, animated route map,
 day-by-day timeline, activity gallery, animated costs, and a head-to-head comparison.
 
 The seven routes:

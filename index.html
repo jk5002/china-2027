@@ -454,6 +454,32 @@ footer{background:linear-gradient(180deg,var(--bg),var(--hero-b));border-top:1px
   .brand small{display:none}
   .brand span{font-size:.9rem}
   .trip-select{max-width:150px;font-size:.76rem;padding:7px 28px 7px 12px}
+  .wrap{padding:0 18px}
+  .section{padding:56px 0}
+  .section-head{margin-bottom:26px}
+  .hero{padding-bottom:5vh}
+  .hero .sub{margin-bottom:20px}
+  .trip-pills{gap:7px}
+  .trip-pills button{padding:9px 13px;font-size:.8rem}
+  .hero-facts{gap:16px 22px;margin-top:24px;padding-top:20px}
+  .map-svg-box{padding:6px}
+  .map-legend{gap:7px}
+  .map-legend button{padding:9px 13px;font-size:.8rem}
+  .filters{gap:8px}
+  .filters button{padding:10px 15px}
+  .tl-item{margin-bottom:28px}
+  .card .body{padding:18px 18px 20px}
+  .cost-total{padding:22px}
+  .spec{padding:18px}
+  .spec dl>div{grid-template-columns:64px 1fr}
+  .check{padding:14px 15px}
+  .verdict{padding:22px}
+  .foot-bottom{font-size:.8rem}
+}
+@media(max-width:400px){
+  .hero h1{font-size:2.6rem}
+  .trip-pills button{font-size:.76rem;padding:8px 11px}
+  .grid{gap:9px}
 }
 
 /* reduced motion */
@@ -497,7 +523,7 @@ footer{background:linear-gradient(180deg,var(--bg),var(--hero-b));border-top:1px
   <div class="hero-inner wrap">
     <div class="hero-kicker">
       <span class="pill">14 Days · 24 Oct – 6 Nov 2027</span>
-      <span class="pill" id="heroHub">Return via Doha ✈</span>
+      <span class="pill" id="heroHub">Home via Beijing ✈</span>
     </div>
     <h1 id="heroTitle">The <em>Silk</em> Road</h1>
     <p class="sub" id="heroSub"></p>
@@ -515,7 +541,7 @@ footer{background:linear-gradient(180deg,var(--bg),var(--hero-b));border-top:1px
     <div class="section-head reveal">
       <span class="eyebrow">The route</span>
       <h2 id="mapTitle">One crew, one map</h2>
-      <p id="mapSub">Every route launches from Hong Kong &amp; Shenzhen and flies home via a Qatar Airways hub. Tap a pin to jump to that day.</p>
+      <p id="mapSub">Every route launches from Hong Kong &amp; Shenzhen and flies home from a major Chinese city. Tap a pin to jump to that day.</p>
     </div>
     <div class="map-shell reveal">
       <div class="map-svg-box">
@@ -723,7 +749,7 @@ const TRIPS = {
     hero:{
       title:'The <em>Silk</em> Road',
       sub:'Deserts, dunes and the Great Wall’s wild west — epic history stitched to sand-sports under crystal-clear, cold October skies.',
-      hub:'Return via Doha ✈', search:'Mingsha singing sand dunes Crescent Lake sunset aerial'
+      hub:'Home via Beijing ✈', search:'Mingsha singing sand dunes Crescent Lake sunset aerial'
     },
     facts:[['7','Stops'],['~4,200km','Overland + air'],['£2.3–2.9k','Per person'],['Cold · dry','Weather']],
     stops:[
@@ -797,7 +823,7 @@ const TRIPS = {
     hero:{
       title:'The Southern <em>Karst</em>',
       sub:'Vertical adrenaline and jade-green karst — climbing, glass skywalks and river kayaks through mild, misty, mountain country.',
-      hub:'Return via Doha ✈', search:'Yangshuo Li River karst mountains mist aerial'
+      hub:'Home via Chongqing ✈', search:'Yangshuo Li River karst mountains mist aerial'
     },
     facts:[['4','Bases'],['~1,900km','Mostly HSR'],['£2.1–2.8k','Per person'],['Mild · green','Weather']],
     stops:[
@@ -983,7 +1009,7 @@ const TRIPS = {
   E:{
     id:'E', name:'Roof of the World', short:'Roof of the World', endHub:'Chengdu', mapLabels:false,
     verdict:'Pick Tibet only if the group is fit and organised — the payoff is Everest’s north face at dawn from 5,200m, with golden monasteries en route.',
-    book:{transport:'Fly HK→Lhasa (brief Chengdu touch); a licensed guide + private vehicle overland to Everest; fly Lhasa→Chengdu→Doha.', prebook:{b:'Permits + guide (apply early Oct)',s:'Tibet Travel + Alien + Military permits via a licensed agency, plus a 10-day-ahead Potala slot. No independent travel.'}, pack:'Expedition sleeping bag & down jacket for −15°C base-camp nights; Diamox.', insurance:'Must cover trekking above 5,000m + emergency evacuation.'},
+    book:{transport:'Fly HK→Lhasa (brief Chengdu touch); a licensed guide + private vehicle overland to Everest; fly Lhasa→Chengdu for the flight home.', prebook:{b:'Permits + guide (apply early Oct)',s:'Tibet Travel + Alien + Military permits via a licensed agency, plus a 10-day-ahead Potala slot. No independent travel.'}, pack:'Expedition sleeping bag & down jacket for −15°C base-camp nights; Diamox.', insurance:'Must cover trekking above 5,000m + emergency evacuation.'},
     theme:{
       '--bg':'#0d1420','--bg-2':'#111c2c','--surface':'#152234','--surface-2':'#1b2c42',
       '--text':'#e9f1f8','--muted':'#a5bcd0','--accent':'#4f9fd6','--accent-2':'#e6b34e',
@@ -1180,7 +1206,7 @@ const TRIP_ORDER=['A','B','C','D','E','F','G'];
 function checklistFor(t){
   const bk=t.book||{};
   return [
-    {b:'Book Qatar Airways flights',s:'Return London ↔ Hong Kong via Doha, home from '+(t.endHub||'a Qatar hub')+'. Book ~4–5 months out.'},
+    {b:'Book return flights',s:'Into Hong Kong, home from '+(t.endHub||'the last stop')+'. Book ~4–5 months out.'},
     {b:'China visa / visa-free transit',s:'Apply for the tourist L visa, or check the latest visa-free transit eligibility.'},
     {b:'Internal transport',s: bk.transport || 'Book internal flights & high-speed rail early — the popular legs sell out.'},
     bk.prebook || {b:'Pre-book the headline sights',s:'Reserve timed tickets and guides for the marquee spots before you go.'},
