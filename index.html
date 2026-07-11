@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>China 2026 · Two Adventures, One Choice — 24 Oct–6 Nov</title>
+<title>China 2027 · Seven Adventures, One Choice — 24 Oct–6 Nov</title>
 <meta name="description" content="Seven 14-day China adventure itineraries compared — Silk Road, Southern Karst, Yunnan, Kham, Tibet, Xinjiang & Guizhou. Same dates from Hong Kong; pick your trip." />
 
 <!--
@@ -469,7 +469,7 @@ footer{background:linear-gradient(180deg,var(--bg),var(--hero-b));border-top:1px
 <nav>
   <div class="brand">
     <span class="dot"></span>
-    <span>CHINA·26 <small id="navTrip">The Silk Road</small></span>
+    <span>CHINA·27 <small id="navTrip">The Silk Road</small></span>
   </div>
   <div class="nav-links">
     <a href="#map">Route</a>
@@ -496,7 +496,7 @@ footer{background:linear-gradient(180deg,var(--bg),var(--hero-b));border-top:1px
   </div>
   <div class="hero-inner wrap">
     <div class="hero-kicker">
-      <span class="pill">14 Days · 24 Oct – 6 Nov 2026</span>
+      <span class="pill">14 Days · 24 Oct – 6 Nov 2027</span>
       <span class="pill" id="heroHub">Return via Doha ✈</span>
     </div>
     <h1 id="heroTitle">The <em>Silk</em> Road</h1>
@@ -600,7 +600,7 @@ footer{background:linear-gradient(180deg,var(--bg),var(--hero-b));border-top:1px
     </div>
     <div class="checklist reveal" id="checklist"></div>
     <div class="foot-bottom">
-      <span>China 2026 · built for the group chat. Prices indicative, per person.</span>
+      <span>China 2027 · built for the group chat. Prices indicative, per person.</span>
       <a href="#top" class="btn btn-ghost">Back to top ↑</a>
     </div>
   </div>
@@ -1232,7 +1232,7 @@ function renderHero(t){
   document.getElementById('heroSub').textContent = t.hero.sub;
   document.getElementById('heroHub').textContent = t.hero.hub;
   document.getElementById('navTrip').textContent = t.name;
-  document.title = `China 2026 · ${t.name} — 24 Oct–6 Nov`;
+  document.title = `China 2027 · ${t.name} — 24 Oct–6 Nov`;
   const img=document.getElementById('heroImg');
   img.setAttribute('data-search', t.hero.search); img.removeAttribute('data-ph-done');
   img.dataset.phDone=''; img.src = photoUrl(t.hero.search,1280,860);

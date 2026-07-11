@@ -1,4 +1,4 @@
-# China 2026 — Two Weeks, Seven Ways
+# China 2027 — Two Weeks, Seven Ways
 
 A single-page, self-contained interactive feature comparing **seven 14-day China adventure
 itineraries** (all 24 Oct – 6 Nov, all starting in Hong Kong + Shenzhen and flying home via a
@@ -28,12 +28,12 @@ The seven routes:
 ```sh
 # create a repo on GitHub and push (needs the GitHub CLI, logged in)
 gh auth login
-gh repo create china-2026 --public --source=. --remote=origin --push
+gh repo create china-2027 --public --source=. --remote=origin --push
 ```
 
 Then in the repo: **Settings → Pages → Build and deployment → Source: Deploy from a branch →
 Branch: `main` / `/ (root)`**. Your site goes live at
-`https://<your-username>.github.io/china-2026/`.
+`https://<your-username>.github.io/china-2027/`.
 
 Any other static host works too (Netlify, Cloudflare Pages, Vercel) — just point it at this
 folder; `index.html` is the entry point.
