@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>China 2026 · Two Adventures, One Choice — 24 Oct–6 Nov</title>
+<meta name="description" content="Seven 14-day China adventure itineraries compared — Silk Road, Southern Karst, Yunnan, Kham, Tibet, Xinjiang & Guizhou. Same dates from Hong Kong; pick your trip." />
+
+<!--
+  ============================================================================
+  ASSETS TO SWAP
+  ----------------------------------------------------------------------------
+  PHOTOS: images are pulled live from Wikimedia Commons (license-clean, real
+  photos of each place) via the PHOTOS{} map in the script. Each <img> also
+  carries a data-search="..." attribute; if a photo fails to load it falls back
+  to a themed gradient placeholder automatically. To use your own images,
+  replace the URLs in PHOTOS{} (or the whole map).
+
+  VIDEO: still placeholders — swap these in yourself:
+  ----------------------------------------------------------------------------
+  HERO VIDEO (looping, muted, poster fallback):
+    · Trip A: "Mingsha singing sand dunes Crescent Lake sunset, aerial drone"
+    · Trip B: "Yangshuo Li River karst mountains mist aerial drone"
+
+  TIMELINE / STOP PHOTOS:
+    Trip A —
+      Hong Kong Victoria Peak skyline night
+      Mingsha singing sand dunes Crescent Lake
+      Jiayuguan fort Great Wall Gobi
+      Zhangye Danxia rainbow mountains
+      Lanzhou Yellow River Zhongshan bridge
+      Xi'an Terracotta Army
+      Mutianyu Great Wall autumn
+    Trip B —
+      Hong Kong Victoria Peak skyline night
+      Yangshuo Li River karst
+      Zhangjiajie Avatar Hallelujah mountains
+      Chongqing Hongyadong night
+
+  ACTIVITY GALLERY (image cells + a few VIDEO cells → swap in YouTube embed ids):
+    Trip A —
+      Mingsha singing sand dunes Crescent Lake            (image)
+      Mogao Grottoes                                      (image)
+      Yardang Devil City                                  (image)
+      Jiayuguan fort Great Wall Gobi                      (image)
+      Zhangye Danxia rainbow mountains                    (VIDEO → data-video-id)
+      Lanzhou Yellow River Zhongshan bridge               (image)
+      Xi'an Terracotta Army                               (image)
+      Huashan plank walk                                  (VIDEO → data-video-id)
+      Mutianyu Great Wall autumn                          (image)
+      Jiankou wild Great Wall                             (VIDEO → data-video-id)
+    Trip B —
+      Yangshuo Li River karst                             (image)
+      Yangshuo rock climbing                              (VIDEO → data-video-id)
+      Yulong River bamboo raft                            (image)
+      Yangshuo hot air balloon                            (image)
+      Zhangjiajie Avatar Hallelujah mountains             (VIDEO → data-video-id)
+      Bailong Elevator                                    (image)
+      Tianmen Mountain glass skywalk                      (VIDEO → data-video-id)
+      Zhangjiajie glass bridge                            (image)
+      Chongqing Hongyadong night                          (image)
+      Wulong Karst Three Natural Bridges                  (image)
+
+  For each VIDEO cell, replace data-video-id="TODO_YOUTUBE_ID" with a real id;
+  the lightbox will then embed https://www.youtube.com/embed/<id>.
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================ THEME TOKENS ============================ */
+:root{
+  --font-display:"Fraunces",Georgia,serif;
+  --font-body:"Inter",system-ui,-apple-system,sans-serif;
+  --maxw:1180px;
+  --radius:18px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --nav-h:60px;
+
+  /* themed (overwritten by JS per trip) — defaults = Trip A */
+  --bg:#1a1210; --bg-2:#241713;
+  --surface:#2a1c17; --surface-2:#33241d;
+  --text:#f6ece2; --muted:#c9ac97;
+  --accent:#e8a05a; --accent-2:#c05a34; --accent-3:#7c5468;
+  --line:rgba(232,160,90,.22);
+  --glow:rgba(232,160,90,.42);
+  --hero-a:#3a2016; --hero-b:#160f0d;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h)}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  transition:background .5s var(--ease),color .5s var(--ease);
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+/* subtle film grain over everything */
+body::after{
+  content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>");
+}
+
+/* ============================ HELPERS ============================ */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.eyebrow{
+  font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;
+}
+.section{padding:88px 0;position:relative}
+.section-head{max-width:640px;margin-bottom:44px}
+.section-head h2{
+  font-family:var(--font-display);font-weight:900;line-height:1.02;
+  font-size:clamp(2rem,6vw,3.6rem);letter-spacing:-.02em;margin:.35em 0 .3em;
+}
+.section-head p{color:var(--muted);font-size:1.05rem;max-width:52ch}
+
+/* reveal-on-scroll */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============================ NAV ============================ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);
+  display:flex;align-items:center;gap:16px;
+  padding:0 22px;
+  background:color-mix(in srgb,var(--bg) 78%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  transition:background .5s var(--ease),border-color .5s var(--ease);
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
+.brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--glow);transition:background .5s}
+.brand small{color:var(--muted);font-weight:500}
+.nav-links{display:none;gap:22px;margin-left:8px}
+.nav-links a{font-size:.86rem;color:var(--muted);position:relative;padding:4px 0;transition:color .25s}
+.nav-links a:hover{color:var(--text)}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--accent);transition:width .3s var(--ease)}
+.nav-links a:hover::after{width:100%}
+.nav-toggle{margin-left:auto}
+
+/* segmented A/B toggle */
+.seg{
+  display:inline-flex;position:relative;border:1px solid var(--line);
+  border-radius:100px;padding:4px;background:color-mix(in srgb,var(--surface) 70%,transparent);
+  transition:border-color .5s,background .5s;
+}
+.seg button{
+  position:relative;z-index:2;border-radius:100px;padding:7px 15px;font-size:.8rem;
+  font-weight:600;color:var(--muted);white-space:nowrap;transition:color .35s;
+}
+.seg button.active{color:#160f0d}
+.seg .thumb{
+  position:absolute;z-index:1;top:4px;bottom:4px;border-radius:100px;
+  background:linear-gradient(120deg,var(--accent),var(--accent-2));
+  box-shadow:0 6px 20px var(--glow);
+  transition:transform .4s var(--ease),width .4s var(--ease),background .5s;
+}
+.seg.big button{padding:13px 26px;font-size:.98rem}
+.seg.big{padding:5px}
+
+/* ============================ HERO ============================ */
+header.hero{
+  position:relative;min-height:100svh;display:flex;align-items:flex-end;
+  padding:0 0 8vh;overflow:hidden;
+}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.hero-media::after{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(120% 90% at 70% 10%, transparent 30%, var(--hero-b) 100%),
+    linear-gradient(to top, var(--bg) 2%, transparent 42%),
+    linear-gradient(120deg, color-mix(in srgb,var(--hero-a) 78%,transparent), transparent 60%);
+  transition:background .6s var(--ease);
+}
+.hero-inner{position:relative;z-index:2;width:100%}
+.hero-kicker{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}
+.hero-kicker .pill{
+  border:1px solid var(--line);border-radius:100px;padding:5px 13px;font-size:.72rem;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--accent);background:rgba(0,0,0,.25);
+}
+.hero h1{
+  font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:.92;
+  font-size:clamp(2.9rem,12vw,7.4rem);margin:0 0 .18em;
+  text-wrap:balance;
+}
+.hero h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+.hero .sub{font-size:clamp(1rem,2.4vw,1.35rem);color:var(--text);max-width:44ch;margin-bottom:30px;opacity:.92}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.hero-facts{display:flex;flex-wrap:wrap;gap:26px;margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
+.hero-facts div{min-width:96px}
+.hero-facts b{display:block;font-family:var(--font-display);font-size:1.5rem;font-weight:600;line-height:1}
+.hero-facts span{font-size:.78rem;color:var(--muted);letter-spacing:.04em}
+.scroll-hint{
+  position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;
+  font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);
+  display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.8;
+}
+.scroll-hint .bar{width:1px;height:34px;background:linear-gradient(var(--accent),transparent);animation:drop 1.8s var(--ease) infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ============================ MAP ============================ */
+.map-shell{
+  display:grid;grid-template-columns:1fr;gap:26px;align-items:center;
+}
+.map-svg-box{position:relative;border-radius:var(--radius);overflow:hidden;
+  background:radial-gradient(150% 130% at 50% -10%,var(--surface-2),var(--bg-2) 68%);
+  border:1px solid var(--line);padding:10px;transition:background .5s,border-color .5s}
+.map-svg-box svg{width:100%;height:auto;display:block}
+.route-land{fill:color-mix(in srgb,var(--accent) 11%,var(--bg-2));stroke:color-mix(in srgb,var(--accent) 42%,transparent);stroke-width:1.1;stroke-linejoin:round;fill-rule:nonzero}
+.route-line{fill:none;stroke:var(--accent);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 6px var(--glow));transition:stroke .5s}
+.pin{cursor:pointer}
+.pin .halo{fill:var(--accent);opacity:0;transform-box:fill-box;transform-origin:center;transition:opacity .4s}
+.pin.lit .halo{opacity:.18;animation:pulse 2.6s ease-out infinite}
+.pin .core{fill:var(--bg);stroke:var(--accent);stroke-width:3;transition:stroke .5s}
+.pin.lit .core{fill:var(--accent)}
+.pin text{fill:var(--text);font-size:15px;font-weight:600;font-family:var(--font-body)}
+.pin .num{fill:var(--bg);font-size:12px;font-weight:700}
+.pin:hover .core{stroke:var(--accent-2)}
+@keyframes pulse{0%{transform:scale(1);opacity:.3}70%{transform:scale(2.6);opacity:0}100%{opacity:0}}
+.map-legend{display:flex;flex-wrap:wrap;gap:10px}
+.map-legend button{
+  border:1px solid var(--line);border-radius:100px;padding:7px 13px;font-size:.8rem;color:var(--muted);
+  display:flex;gap:8px;align-items:center;transition:all .25s;
+}
+.map-legend button:hover{color:var(--text);border-color:var(--accent);transform:translateY(-2px)}
+.map-legend button b{color:var(--accent);font-family:var(--font-display)}
+
+/* ============================ TIMELINE ============================ */
+.timeline{position:relative;margin-top:20px}
+.timeline::before{
+  content:"";position:absolute;left:20px;top:0;bottom:0;width:2px;
+  background:linear-gradient(var(--accent),var(--accent-2));opacity:.5;
+}
+.tl-item{position:relative;padding-left:56px;margin-bottom:38px}
+.tl-item .node{
+  position:absolute;left:11px;top:8px;width:20px;height:20px;border-radius:50%;
+  background:var(--bg);border:3px solid var(--accent);box-shadow:0 0 0 5px var(--bg),0 0 16px var(--glow);z-index:2;
+}
+.card{
+  background:linear-gradient(180deg,var(--surface),var(--surface-2));
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .5s,background .5s;
+}
+.card:hover{transform:translateY(-6px);box-shadow:0 26px 60px -24px rgba(0,0,0,.7);border-color:var(--accent)}
+.card .media{position:relative;aspect-ratio:16/10;overflow:hidden;background:linear-gradient(135deg,var(--surface-2),var(--bg-2))}
+.card .media img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.card:hover .media img{transform:scale(1.07)}
+.card .media .dates{
+  position:absolute;top:12px;left:12px;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);
+  border:1px solid var(--line);border-radius:100px;padding:5px 12px;font-size:.74rem;font-weight:600;letter-spacing:.04em;
+}
+.card .media .leg{
+  position:absolute;bottom:12px;left:12px;right:12px;font-size:.78rem;color:#fff;
+  background:linear-gradient(90deg,rgba(0,0,0,.62),rgba(0,0,0,.15));padding:7px 12px;border-radius:10px;
+}
+.card .body{padding:20px 22px 24px}
+.card .body h3{font-family:var(--font-display);font-size:1.5rem;font-weight:600;letter-spacing:-.01em;line-height:1.05}
+.card .region{color:var(--accent);font-size:.8rem;font-weight:600;letter-spacing:.05em;margin:2px 0 10px}
+.card .body p{color:var(--muted);font-size:.94rem;margin-bottom:14px}
+.acts{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.acts li{font-size:.9rem;padding-left:20px;position:relative}
+.acts li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.tags{display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+  padding:4px 10px;border-radius:100px;border:1px solid var(--line);color:var(--muted)}
+.tag.adrenaline,.tag.climbing{color:var(--accent-2);border-color:color-mix(in srgb,var(--accent-2) 45%,transparent)}
+.tag.pre-book{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.tag.weather-dependent{color:var(--accent-3);border-color:color-mix(in srgb,var(--accent-3) 55%,transparent)}
+
+@media(min-width:860px){
+  .timeline::before{left:50%;transform:translateX(-50%)}
+  .tl-item{width:50%;padding-left:0}
+  .tl-item .node{left:auto;right:-10px}
+  .tl-item:nth-child(odd){left:0;padding-right:46px;text-align:left}
+  .tl-item:nth-child(even){left:50%;padding-left:46px}
+  .tl-item:nth-child(even) .node{left:-10px;right:auto}
+  .tl-item .card{text-align:left}
+}
+
+/* ============================ GALLERY ============================ */
+.filters{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:26px}
+.filters button{
+  border:1px solid var(--line);border-radius:100px;padding:8px 16px;font-size:.82rem;font-weight:500;
+  color:var(--muted);transition:all .25s;
+}
+.filters button:hover{color:var(--text);transform:translateY(-2px)}
+.filters button.active{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#160f0d;font-weight:600;border-color:transparent}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:720px){.grid{grid-template-columns:repeat(3,1fr);gap:14px}}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(4,1fr)}}
+.cell{
+  position:relative;border-radius:14px;overflow:hidden;cursor:pointer;aspect-ratio:1;
+  background:linear-gradient(135deg,var(--surface-2),var(--bg-2));
+  border:1px solid var(--line);transition:transform .45s var(--ease),opacity .4s,border-color .3s;
+}
+.cell.tall{grid-row:span 2;aspect-ratio:auto}
+.cell img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.cell:hover{border-color:var(--accent);transform:translateY(-4px)}
+.cell:hover img{transform:scale(1.09)}
+.cell .cap{
+  position:absolute;left:0;right:0;bottom:0;padding:26px 12px 11px;font-size:.8rem;font-weight:600;color:#fff;
+  background:linear-gradient(transparent,rgba(0,0,0,.78));
+}
+.cell .catchip{position:absolute;top:9px;left:9px;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(0,0,0,.5);border:1px solid var(--line);padding:3px 8px;border-radius:100px;color:var(--accent)}
+.cell .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:52px;height:52px;border-radius:50%;background:rgba(0,0,0,.42);backdrop-filter:blur(4px);
+  border:1.5px solid rgba(255,255,255,.75);display:flex;align-items:center;justify-content:center}
+.cell .play::after{content:"";border-left:15px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
+.cell.hide{display:none}
+
+/* lightbox */
+.lightbox{position:fixed;inset:0;z-index:500;background:rgba(8,5,4,.94);backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;padding:20px}
+.lightbox.open{display:flex}
+.lb-stage{max-width:1000px;width:100%;position:relative}
+.lb-stage img,.lb-stage .lb-video{width:100%;max-height:78vh;object-fit:contain;border-radius:12px}
+.lb-video{aspect-ratio:16/9;width:100%;border:0;background:#000}
+.lb-cap{margin-top:14px;text-align:center;color:var(--muted);font-size:.92rem}
+.lb-cap b{color:var(--text);font-weight:600}
+.lb-btn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:1px solid var(--line);font-size:1.3rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lb-btn:hover{background:rgba(255,255,255,.22)}
+.lb-prev{left:-8px}.lb-next{right:-8px}
+.lb-close{position:fixed;top:18px;right:20px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid var(--line);font-size:1.4rem}
+@media(max-width:640px){.lb-prev{left:2px}.lb-next{right:2px}.lb-btn{width:40px;height:40px}}
+
+/* ============================ COSTS ============================ */
+.cost-grid{display:grid;grid-template-columns:1fr;gap:34px}
+@media(min-width:900px){.cost-grid{grid-template-columns:1.15fr .85fr}}
+.cost-total{
+  background:linear-gradient(150deg,var(--surface),var(--bg-2));border:1px solid var(--line);
+  border-radius:var(--radius);padding:30px;transition:background .5s,border-color .5s}
+.cost-total .big{font-family:var(--font-display);font-weight:900;letter-spacing:-.02em;
+  font-size:clamp(3rem,11vw,5.2rem);line-height:.9;background:linear-gradient(120deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cost-total .pp{color:var(--muted);font-size:.9rem;margin-bottom:22px}
+.slider-row{margin-top:8px}
+.slider-row .lab{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:100px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;
+  background:var(--text);border:3px solid var(--accent);cursor:pointer;box-shadow:0 4px 14px var(--glow)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--text);border:3px solid var(--accent);cursor:pointer}
+.breakdown{display:flex;flex-direction:column;gap:16px}
+.bd-row .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.bd-row .top b{font-weight:500;font-size:.95rem}
+.bd-row .top .val{font-family:var(--font-display);font-weight:600;font-size:1.15rem}
+.bd-bar{height:9px;border-radius:100px;background:var(--surface-2);overflow:hidden}
+.bd-bar span{display:block;height:100%;border-radius:100px;background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  width:0;transition:width .9s var(--ease)}
+
+/* ============================ COMPARE ============================ */
+.cmp{overflow:hidden;border-radius:var(--radius);border:1px solid var(--line);transition:border-color .5s}
+.cmp-row{display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--line)}
+@media(min-width:760px){.cmp-row{grid-template-columns:150px 1fr 1fr}}
+.cmp-row:last-child{border-bottom:none}
+.cmp-head{background:var(--surface-2)}
+.cmp-cell{padding:16px 20px;font-size:.94rem}
+.cmp-cell.lbl{font-weight:600;color:var(--accent);letter-spacing:.03em;font-size:.8rem;text-transform:uppercase;
+  display:flex;align-items:center;background:color-mix(in srgb,var(--surface) 60%,transparent)}
+.cmp-cell.tripA{border-left:3px solid transparent}
+.cmp-cell.tripB{border-left:3px solid transparent}
+.cmp .colA .cmp-cell.tripA{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+.cmp-head .cmp-cell{font-family:var(--font-display);font-size:1.15rem;font-weight:600}
+.cmp-cell.active{position:relative}
+.tripcol.active .cmp-cell{border-left-color:var(--accent)}
+.tripcol h4{display:flex;align-items:center;gap:9px}
+.tripcol h4 .tag-active{font-family:var(--font-body);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--accent);color:#160f0d;padding:3px 8px;border-radius:100px;font-weight:700}
+.verdict{margin-top:28px;padding:26px 28px;border-radius:var(--radius);
+  background:linear-gradient(150deg,color-mix(in srgb,var(--accent) 16%,var(--surface)),var(--bg-2));
+  border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);transition:background .5s,border-color .5s}
+.verdict .eyebrow{margin-bottom:8px}
+.verdict p{font-family:var(--font-display);font-size:clamp(1.15rem,3vw,1.6rem);font-weight:500;line-height:1.35;font-style:italic}
+
+/* how compare renders: we build 3 columns, but on mobile we stack per-row. Simpler flat grid used below. */
+.cmp-flat{display:grid;grid-template-columns:1fr;gap:0}
+
+/* ============================ FOOTER ============================ */
+footer{background:linear-gradient(180deg,var(--bg),var(--hero-b));border-top:1px solid var(--line);padding:70px 0 50px;transition:background .5s}
+.checklist{display:grid;grid-template-columns:1fr;gap:12px;margin-top:8px}
+@media(min-width:680px){.checklist{grid-template-columns:1fr 1fr}}
+.check{display:flex;gap:13px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:15px 17px;transition:all .3s var(--ease),background .5s}
+.check:hover{border-color:var(--accent);transform:translateY(-3px)}
+.check .box{flex:none;width:24px;height:24px;border-radius:7px;border:2px solid var(--accent);position:relative;margin-top:1px;transition:all .25s}
+.check.done .box{background:var(--accent)}
+.check.done .box::after{content:"";position:absolute;left:7px;top:2px;width:6px;height:12px;border:solid #160f0d;border-width:0 3px 3px 0;transform:rotate(45deg)}
+.check .box::after{content:""}
+.check .txt b{display:block;font-size:.95rem}
+.check .txt span{color:var(--muted);font-size:.83rem}
+.check.done .txt b{text-decoration:line-through;opacity:.6}
+.foot-bottom{margin-top:44px;padding-top:26px;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;color:var(--muted);font-size:.84rem}
+
+.btn{display:inline-flex;align-items:center;gap:9px;border-radius:100px;padding:13px 24px;font-weight:600;font-size:.92rem;transition:all .3s var(--ease)}
+.btn-primary{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#160f0d;box-shadow:0 10px 30px -10px var(--glow)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 40px -12px var(--glow)}
+.btn-ghost{border:1px solid var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--accent);transform:translateY(-3px)}
+
+/* trip selector — nav dropdown + hero pills (scales to any number of trips) */
+.trip-select{-webkit-appearance:none;appearance:none;color:var(--text);font-family:inherit;font-weight:600;font-size:.82rem;
+  border:1px solid var(--line);border-radius:100px;padding:8px 32px 8px 15px;cursor:pointer;max-width:210px;
+  background:color-mix(in srgb,var(--surface) 72%,transparent);transition:border-color .3s,background .5s;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' stroke='%23bbbbbb' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat:no-repeat;background-position:right 13px center}
+.trip-select:hover{border-color:var(--accent)}
+.trip-select option{background:#1a1a1a;color:#fff}
+.trip-pills{display:flex;flex-wrap:wrap;gap:9px;max-width:640px}
+.trip-pills button{border:1px solid var(--line);border-radius:100px;padding:9px 16px;font-size:.86rem;font-weight:600;
+  color:var(--muted);background:rgba(0,0,0,.28);transition:all .25s var(--ease)}
+.trip-pills button:hover{color:var(--text);border-color:var(--accent);transform:translateY(-2px)}
+.trip-pills button.active{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#160f0d;border-color:transparent;box-shadow:0 8px 22px -8px var(--glow)}
+
+/* comparison — one spec card per trip */
+.cmp{display:grid;grid-template-columns:1fr;gap:14px;border:0;overflow:visible}
+@media(min-width:600px){.cmp{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.cmp{grid-template-columns:repeat(3,1fr)}}
+.spec{background:linear-gradient(180deg,var(--surface),var(--surface-2));border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px;display:flex;flex-direction:column;transition:transform .35s var(--ease),border-color .3s,background .5s,box-shadow .3s}
+.spec:hover{transform:translateY(-4px);border-color:var(--accent)}
+.spec.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 24px 55px -30px var(--glow)}
+.spec-head{display:flex;align-items:center;gap:9px;margin-bottom:15px}
+.spec-head h4{font-family:var(--font-display);font-size:1.3rem;font-weight:600;flex:1;line-height:1.05}
+.spec-dot{flex:none;width:11px;height:11px;border-radius:50%;background:linear-gradient(var(--accent),var(--accent-2))}
+.spec-head .tag-active{font-family:var(--font-body);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--accent);color:#160f0d;padding:3px 8px;border-radius:100px;font-weight:700}
+.spec dl{display:flex;flex-direction:column;gap:10px;margin:0 0 16px}
+.spec dl>div{display:grid;grid-template-columns:74px 1fr;gap:10px;align-items:start}
+.spec dt{font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);font-weight:600;padding-top:2px}
+.spec dd{font-size:.85rem;color:var(--muted);line-height:1.45}
+.spec-pick{margin-top:auto;width:100%;border:1px solid var(--line);border-radius:100px;padding:10px;font-size:.82rem;font-weight:600;color:var(--text);cursor:pointer;transition:all .25s}
+.spec-pick:hover{border-color:var(--accent);transform:translateY(-1px)}
+.spec.active .spec-pick{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#160f0d;border-color:transparent;cursor:default}
+
+@media(min-width:900px){.nav-links{display:flex}}
+@media(max-width:600px){
+  nav{padding:0 13px;gap:9px}
+  .brand small{display:none}
+  .brand span{font-size:.9rem}
+  .trip-select{max-width:150px;font-size:.76rem;padding:7px 28px 7px 12px}
+}
+
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================ NAV ============================ -->
+<nav>
+  <div class="brand">
+    <span class="dot"></span>
+    <span>CHINA·26 <small id="navTrip">The Silk Road</small></span>
+  </div>
+  <div class="nav-links">
+    <a href="#map">Route</a>
+    <a href="#days">Day by day</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#costs">Cost</a>
+    <a href="#compare">Compare</a>
+    <a href="#book">Book it</a>
+  </div>
+  <div class="nav-toggle">
+    <select class="trip-select" id="tripSelect" aria-label="Choose trip"></select>
+  </div>
+</nav>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero" id="top">
+  <div class="hero-media" id="heroMedia">
+    <!-- swap src → looping muted trip film. poster falls back to themed gradient -->
+    <video id="heroVideo" autoplay muted loop playsinline
+           data-search="Trip hero aerial drone footage">
+      <!-- <source src="TODO_TRIP_HERO.mp4" type="video/mp4"> -->
+    </video>
+    <img id="heroImg" alt="" data-search="hero" />
+  </div>
+  <div class="hero-inner wrap">
+    <div class="hero-kicker">
+      <span class="pill">14 Days · 24 Oct – 6 Nov 2026</span>
+      <span class="pill" id="heroHub">Return via Doha ✈</span>
+    </div>
+    <h1 id="heroTitle">The <em>Silk</em> Road</h1>
+    <p class="sub" id="heroSub"></p>
+    <div class="hero-cta">
+      <div class="trip-pills" id="tripPills"></div>
+    </div>
+    <div class="hero-facts" id="heroFacts"></div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><span class="bar"></span></div>
+</header>
+
+<!-- ============================ MAP ============================ -->
+<section class="section" id="map">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The route</span>
+      <h2 id="mapTitle">One crew, one map</h2>
+      <p id="mapSub">Every route launches from Hong Kong &amp; Shenzhen and flies home via a Qatar Airways hub. Tap a pin to jump to that day.</p>
+    </div>
+    <div class="map-shell reveal">
+      <div class="map-svg-box">
+        <svg id="mapSvg" viewBox="0 0 1000 755" preserveAspectRatio="xMidYMid meet" aria-label="Route map of China"></svg>
+      </div>
+      <div class="map-legend" id="mapLegend"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TIMELINE ============================ -->
+<section class="section" id="days">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Day by day</span>
+      <h2 id="daysTitle">The itinerary</h2>
+      <p>Fourteen days, stop by stop — the sights, the legs between them, and what to pre-book.</p>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<!-- ============================ GALLERY ============================ -->
+<section class="section" id="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The reel</span>
+      <h2>Activity gallery</h2>
+      <p>Filter by what you're into. A few tiles are video — tap to play in the lightbox.</p>
+    </div>
+    <div class="filters reveal" id="filters"></div>
+    <div class="grid reveal" id="grid"></div>
+  </div>
+</section>
+
+<!-- ============================ COSTS ============================ -->
+<section class="section" id="costs">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The damage</span>
+      <h2 id="costTitle">What it costs</h2>
+      <p>Per person, all-in estimate. Slide between a lean backpacker build and a comfort build.</p>
+    </div>
+    <div class="cost-grid">
+      <div class="cost-total reveal">
+        <div class="big" id="costBig">£0</div>
+        <div class="pp">per person · <span id="costMode">balanced</span> build · excl. spending money</div>
+        <div class="slider-row">
+          <div class="lab"><span>Lean &amp; local</span><span>Comfort &amp; ease</span></div>
+          <input type="range" id="costSlider" min="0" max="100" value="55" aria-label="Lean to comfort budget slider" />
+        </div>
+        <div class="pp" style="margin-top:18px">Range: <b id="costRange"></b></div>
+      </div>
+      <div class="breakdown reveal" id="breakdown"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ COMPARE ============================ -->
+<section class="section" id="compare">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Head to head</span>
+      <h2>Seven routes, one fortnight</h2>
+      <p>Same dates, same crew — seven very different two weeks. Here's the honest split; tap a card to switch the whole page to that trip.</p>
+    </div>
+    <div class="cmp reveal" id="cmp"></div>
+    <div class="verdict reveal">
+      <span class="eyebrow">The verdict</span>
+      <p id="verdictText"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer id="book">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-bottom:18px">
+      <span class="eyebrow">Lock it in</span>
+      <h2>Book-it checklist</h2>
+      <p id="bookSub">Tick these off and the trip's real. Tap an item to mark it done.</p>
+    </div>
+    <div class="checklist reveal" id="checklist"></div>
+    <div class="foot-bottom">
+      <span>China 2026 · built for the group chat. Prices indicative, per person.</span>
+      <a href="#top" class="btn btn-ghost">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================ LIGHTBOX ============================ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Media viewer">
+  <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+  <div class="lb-stage">
+    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+    <div id="lbHolder"></div>
+    <button class="lb-btn lb-next" id="lbNext" aria-label="Next">›</button>
+    <div class="lb-cap" id="lbCap"></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ===========================================================================
+   DATA — everything the two trips need. Toggling A/B re-themes + re-renders.
+   =========================================================================== */
+const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Real China national outline (Mercator-projected from public-domain border
+   GeoJSON, viewBox 0 0 1000 755). City pins below are projected to match. */
+const CHINA_PATH='M589.8 707 L576.8 714.6 L564.5 709.7 L564.1 696 L571.5 688.8 L587.9 684.4 L596.5 684.7 L599.9 690.8 L593.3 697.8 L589.8 707 Z M849.5 129.4 L875.6 136.8 L893.4 153 L899.4 174.2 L922.2 174.2 L935.2 165.4 L960 158.7 L952.1 178.9 L946.3 187 L941.2 211 L931.1 231.8 L912.9 228.1 L900 235.6 L903.9 253.6 L901.8 278 L894.1 278.6 L894.2 288.9 L884.5 276.9 L878.6 288.3 L855.4 297.1 L857.8 307.7 L844.8 306.9 L837.7 300.6 L827.4 314.8 L810.8 325.5 L798.6 338.1 L777.7 343.8 L766.6 352.8 L750.5 358.1 L758.5 349.1 L755.3 341.6 L767.2 328.4 L759.3 318 L746.2 325 L729.3 338.7 L720 351.2 L705.3 352.2 L697.7 361.2 L705.6 374.1 L717.8 377.2 L718.3 385.7 L730.2 391.2 L747 377.7 L760.3 385.1 L770 385.6 L772.5 395.5 L751.2 400.7 L744.2 410.8 L729.6 420 L721.9 432.9 L738.1 442.9 L744 460.7 L753.1 477.1 L763.3 490.6 L763 503.7 L753.6 508.5 L757.2 517.7 L766 523.1 L763.7 537.1 L759.9 550.7 L751.6 552.2 L740.6 570.5 L728.5 592.5 L714.5 612.3 L693.9 627.4 L673 641.1 L656.1 643 L647 650.2 L641.8 645 L633.3 653 L612.4 661.1 L596.5 663.6 L591.4 680.5 L583.1 681.5 L579.1 669.8 L582.7 663.6 L562.6 658.4 L555.5 661.1 L540.4 656.9 L533.2 650.3 L535.6 641 L521.9 638 L514.7 631.9 L501.9 640.6 L487.3 642.4 L475.3 642.3 L467.3 646.3 L459.5 648.7 L461.8 667.2 L453.8 666.7 L452.5 662.9 L452 656.3 L441 661 L434.5 658 L423.4 651.9 L427.7 638.4 L418.2 635.3 L414.7 620.2 L398.8 622.9 L400.6 603.4 L414.8 589.5 L415.4 575.7 L415 562.8 L408.5 558.8 L403.4 548.8 L394.7 550.1 L378.5 547.5 L383.6 540.3 L376.5 529.7 L365.8 536.9 L353.3 532.7 L336 543.6 L322.3 556.2 L310.2 558.4 L303.7 553.8 L295.8 553.4 L285 549.5 L276.9 553.8 L267 566.4 L265.8 553 L256.6 556.6 L239.1 554.9 L222.2 551 L210 543.5 L198.3 540.2 L193.3 531.9 L184.9 529.5 L169.7 518.2 L157.7 512.9 L151.5 517 L130.7 504.9 L115.9 493.8 L111.7 474.2 L122.5 476.6 L123 467.5 L117 458.4 L118.5 443.6 L102.4 422.2 L77.8 414.7 L73.3 400.4 L62.2 391.7 L59.6 386.3 L57.3 375.5 L57.8 368 L48.7 363.7 L43.8 365.6 L40 347.8 L44.3 343.3 L42.2 338.8 L56.5 329.5 L66.9 325.6 L82.8 328.3 L88.4 315.6 L107.7 313.3 L113 305.3 L136.6 294.4 L138.7 289.9 L137.5 278.2 L147.8 272.9 L134.3 236.6 L164 228.2 L171.7 223.4 L182.5 184.4 L212.3 191.7 L220.6 181.7 L221.3 159.3 L233.8 157.1 L245.2 142 L251.1 140.1 L255 156 L267.6 168 L289 176.4 L299.4 194.2 L293.6 219.5 L299 228.8 L316.8 232.5 L337 235.4 L355.1 248.6 L364.4 250.9 L371.2 270 L380 282.2 L396.5 281.7 L427.5 286.3 L447.4 283.5 L462.2 286.5 L484.4 298.8 L502.6 298.8 L509.2 305 L526.7 294.2 L550.9 287.2 L573.4 286.4 L590.9 279.2 L601.7 268.2 L612.1 261.3 L609.7 254.4 L604.9 246.3 L612.8 232.7 L621.2 234.6 L636.7 238.9 L651.6 227.7 L674.5 219.4 L685.5 205.1 L696 198.9 L717.8 196 L729.6 198.5 L731.3 190.7 L717.7 175.2 L705.6 168 L694.1 176.3 L679.3 172.8 L670.8 175.6 L667 166.5 L677.6 143.8 L684.9 126.4 L702.9 135.1 L724 120.5 L723.9 110.1 L737.4 84.8 L745.7 77 L745.6 63.5 L737.3 57.6 L749.7 45.2 L768.3 40.7 L788.2 40 L810.7 47.5 L823.8 56.6 L833.1 81.4 L838.7 91.8 L844 106.4 L849.5 129.4 Z';
+
+/* Real photos — license-clean lead images from Wikimedia Commons, one per
+   search term. Gradient placeholder stays as an automatic fallback.
+   To swap: replace any URL below (or the whole map) with your own images. */
+const PHOTOS={
+ 'Hong Kong Victoria Peak skyline night':'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/High_West_and_Victoria_Peak_from_Victoria_Gap_%28crop1%29.jpg/1000px-High_West_and_Victoria_Peak_from_Victoria_Gap_%28crop1%29.jpg',
+ 'Mingsha singing sand dunes Crescent Lake':'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Crescent_Lake_from_the_Singing_Sand_Dunes_%2820230918101214%29.jpg/1000px-Crescent_Lake_from_the_Singing_Sand_Dunes_%2820230918101214%29.jpg',
+ 'Mogao Grottoes':'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Mogao_Caves_%2854376969262%29.jpg/1000px-Mogao_Caves_%2854376969262%29.jpg',
+ 'Yardang Devil City':'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Dunhuang_Yardang_National_Geopark_2.JPG/1000px-Dunhuang_Yardang_National_Geopark_2.JPG',
+ 'Jiayuguan fort Great Wall Gobi':'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Jiayu_Guan_2014.01.01_11-03-14.jpg/1000px-Jiayu_Guan_2014.01.01_11-03-14.jpg',
+ 'Zhangye Danxia rainbow mountains':'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Zhangye_National_Geopark_5.jpg/1000px-Zhangye_National_Geopark_5.jpg',
+ 'Lanzhou Yellow River Zhongshan bridge':'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Lanzhou_Zhongshan_Qiao_2013.12.28_17-26-24.jpg/1000px-Lanzhou_Zhongshan_Qiao_2013.12.28_17-26-24.jpg',
+ "Xi'an Terracotta Army":'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/51714-Terracota-Army.jpg/1000px-51714-Terracota-Army.jpg',
+ 'Huashan plank walk':'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Hua_Shan.jpg/1000px-Hua_Shan.jpg',
+ 'Mutianyu Great Wall autumn':'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Great_Wall_of_China_July_2006.JPG/1000px-Great_Wall_of_China_July_2006.JPG',
+ 'Jiankou wild Great Wall':'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Jiankou.jpg/1000px-Jiankou.jpg',
+ 'Yangshuo Li River karst':'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/87318-Li-River.jpg/1000px-87318-Li-River.jpg',
+ 'Yangshuo rock climbing':'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/1_guilin_yangshuo_2017.jpg/1000px-1_guilin_yangshuo_2017.jpg',
+ 'Yulong River bamboo raft':'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Yulong.JPG/1000px-Yulong.JPG',
+ 'Yangshuo hot air balloon':'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/%E5%85%B4%E5%B9%B3%E9%A9%AC%E5%B5%AC%E8%A5%BF%E6%B1%89%E9%BB%84%E5%B1%B1%E5%AE%AB_-_panoramio.jpg/1000px-%E5%85%B4%E5%B9%B3%E9%A9%AC%E5%B5%AC%E8%A5%BF%E6%B1%89%E9%BB%84%E5%B1%B1%E5%AE%AB_-_panoramio.jpg',
+ 'Zhangjiajie Avatar Hallelujah mountains':'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/1_tianzishan_wulingyuan_zhangjiajie_2012.jpg/1000px-1_tianzishan_wulingyuan_zhangjiajie_2012.jpg',
+ 'Bailong Elevator':'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/%E6%B9%96%E5%8D%97_%E5%BC%A0%E5%AE%B6%E7%95%8C_%E7%99%BE%E9%BE%99%E5%A4%A9%E6%A2%AF_-_panoramio.jpg/1000px-%E6%B9%96%E5%8D%97_%E5%BC%A0%E5%AE%B6%E7%95%8C_%E7%99%BE%E9%BE%99%E5%A4%A9%E6%A2%AF_-_panoramio.jpg',
+ 'Tianmen Mountain glass skywalk':'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Tianmen_38330-Zhangjiajie_%2849047525877%29.jpg/1000px-Tianmen_38330-Zhangjiajie_%2849047525877%29.jpg',
+ 'Zhangjiajie glass bridge':'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/ZhangjiajieGlassByHighestBridges.jpg/1000px-ZhangjiajieGlassByHighestBridges.jpg',
+ 'Chongqing Hongyadong night':'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/202308_Hongya_Cave_at_night_from_Qiansimen_Bridge.jpg/1000px-202308_Hongya_Cave_at_night_from_Qiansimen_Bridge.jpg',
+ 'Wulong Karst Three Natural Bridges':'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Wulongtianshengsanqiao.JPG/1000px-Wulongtianshengsanqiao.JPG',
+ 'Mingsha singing sand dunes Crescent Lake sunset aerial':'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Crescent_Lake_from_the_Singing_Sand_Dunes_%2820230918101214%29.jpg/1000px-Crescent_Lake_from_the_Singing_Sand_Dunes_%2820230918101214%29.jpg',
+ 'Yangshuo Li River karst mountains mist aerial':'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/87318-Li-River.jpg/1000px-87318-Li-River.jpg',
+ // Trip C — Yunnan
+ 'Lijiang old town Naxi':'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Black_Dragon_%E9%BB%91%E9%BE%99%E6%BD%AD_%285496141333%29.jpg/1000px-Black_Dragon_%E9%BB%91%E9%BE%99%E6%BD%AD_%285496141333%29.jpg',
+ 'Tiger Leaping Gorge':'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/%E8%99%8E%E8%B7%B3%E5%B3%A1.JPG/1000px-%E8%99%8E%E8%B7%B3%E5%B3%A1.JPG',
+ 'Shangri-La Ganden Sumtseling monastery':'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/%E6%9D%BE%E8%B5%9E%E6%9E%97%E5%AF%BA_-_%E5%85%A8%E6%99%AF_-_2025-05-07_09_%28cropped%29.jpg/1000px-%E6%9D%BE%E8%B5%9E%E6%9E%97%E5%AF%BA_-_%E5%85%A8%E6%99%AF_-_2025-05-07_09_%28cropped%29.jpg',
+ 'Meili Snow Mountain Kawagebo':'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/%E6%A2%85%E9%87%8C%E9%9B%AA%E5%B1%B1_-_%E6%A0%B8%E5%BF%83%E5%B1%B1%E5%B3%B0%E5%85%A8%E6%99%AF_-_2025-05-10_IMG_3463.jpg/1000px-%E6%A2%85%E9%87%8C%E9%9B%AA%E5%B1%B1_-_%E6%A0%B8%E5%BF%83%E5%B1%B1%E5%B3%B0%E5%85%A8%E6%99%AF_-_2025-05-10_IMG_3463.jpg',
+ 'Yuanyang Hani rice terraces':'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Terrace_field_yunnan_china_denoised.jpg/1000px-Terrace_field_yunnan_china_denoised.jpg',
+ 'Jade Dragon Snow Mountain':'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Yulong_xue_shan.jpg/1000px-Yulong_xue_shan.jpg',
+ 'Kunming Stone Forest':'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Shilin%2C_Yunnan_24740.jpg/1000px-Shilin%2C_Yunnan_24740.jpg',
+ 'Mingyong Glacier':'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Mingyong_Glacier.jpg/1000px-Mingyong_Glacier.jpg',
+ // Trip D — Sichuan & Kham
+ 'Chengdu giant panda':'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Chengdu_Research_Base_Eingang.jpg/1000px-Chengdu_Research_Base_Eingang.jpg',
+ 'Leshan Giant Buddha':'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/36275-Leshan_%2849067653383%29.jpg/1000px-36275-Leshan_%2849067653383%29.jpg',
+ 'Mount Emei golden summit':'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/%E5%B3%A8%E7%9C%89%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA_Mount_Emei_Scenic_Area_07.jpg/1000px-%E5%B3%A8%E7%9C%89%E5%B1%B1%E9%A3%8E%E6%99%AF%E5%8C%BA_Mount_Emei_Scenic_Area_07.jpg',
+ 'Tagong grassland monastery':'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Tagong22.jpg/1000px-Tagong22.jpg',
+ 'Daocheng Yading Milk Lake':'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Yading_National_Park_Milk_Lake.jpg/1000px-Yading_National_Park_Milk_Lake.jpg',
+ 'Xinduqiao Sichuan':'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Kangding_from_above.jpg/1000px-Kangding_from_above.jpg',
+ // Trip E — Tibet
+ 'Potala Palace Lhasa':'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Potala_Palace_HQ.jpg/1000px-Potala_Palace_HQ.jpg',
+ 'Jokhang temple Lhasa':'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Jokhang_Temple_in_Tibet.jpg/1000px-Jokhang_Temple_in_Tibet.jpg',
+ 'Yamdrok Lake':'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/LAC_YAMDROK.jpg/1000px-LAC_YAMDROK.jpg',
+ 'Gyantse Kumbum stupa':'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Kumbum_Gyantse.jpg/1000px-Kumbum_Gyantse.jpg',
+ 'Tashilhunpo monastery Shigatse':'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Entrance_to_Tashilhunpo_Monastery.jpg/1000px-Entrance_to_Tashilhunpo_Monastery.jpg',
+ 'Everest Base Camp north face':'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Mt._Everest_from_Gokyo_Ri_November_5%2C_2012.jpg/1000px-Mt._Everest_from_Gokyo_Ri_November_5%2C_2012.jpg',
+ 'Rongbuk monastery Everest':'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Rongbuk_Monastery_L1080321.jpg/1000px-Rongbuk_Monastery_L1080321.jpg',
+ // Trip F — Xinjiang
+ 'Heavenly Lake Tianshan':'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/The_Heavenly_Lake_%E5%A4%A9%E6%B1%A0_%288064381762%29.jpg/1000px-The_Heavenly_Lake_%E5%A4%A9%E6%B1%A0_%288064381762%29.jpg',
+ 'Turpan Flaming Mountains':'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Turpan-flaming-mountains-d02.jpg/1000px-Turpan-flaming-mountains-d02.jpg',
+ 'Jiaohe ruins Turpan':'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Turpan-jiaohe-ruinas-d28.jpg/1000px-Turpan-jiaohe-ruinas-d28.jpg',
+ 'Kashgar old city':'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/H%C3%ABytgah_Mosque%2C_Kashi_%2820230923100109%29.jpg/1000px-H%C3%ABytgah_Mosque%2C_Kashi_%2820230923100109%29.jpg',
+ 'Karakul Lake Muztagh Ata':'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Muztagh_Ata_Xinjiang_China.jpg/1000px-Muztagh_Ata_Xinjiang_China.jpg',
+ 'Tashkurgan Stone City':'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Tashkurgan_Eagle_%2839959879770%29.jpg/1000px-Tashkurgan_Eagle_%2839959879770%29.jpg',
+ // Trip G — Guizhou
+ 'Huangguoshu Waterfall':'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/HuangguoshuFall.jpg/1000px-HuangguoshuFall.jpg',
+ 'Xijiang Miao village':'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Xijiang_Qianhu_Miaozhai.Skyline.jpg/1000px-Xijiang_Qianhu_Miaozhai.Skyline.jpg',
+ 'Zhaoxing Dong village drum tower':'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Ethic_Dong_Liping_Guizhou_China.jpg/1000px-Ethic_Dong_Liping_Guizhou_China.jpg',
+ 'Jiaxiu Pavilion Guiyang':'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Guiyang_jiaxiu_tower.jpg/1000px-Guiyang_jiaxiu_tower.jpg'
+};
+function photoUrl(term,w){
+  const base=PHOTOS[term];
+  if(!base) return placeholder(term);
+  const width=Math.min(w||900,1200);
+  // serve via the canonical Special:FilePath endpoint (?width= resizes on the fly)
+  const m=base.match(/\/thumb\/[0-9a-f]\/[0-9a-f]{2}\/([^/]+)\//);
+  if(m) return 'https://commons.wikimedia.org/wiki/Special:FilePath/'+m[1]+'?width='+width;
+  return base;
+}
+// if a photo fails to load, fall back to the themed gradient placeholder
+document.addEventListener('error',function(e){
+  const t=e.target;
+  if(t && t.tagName==='IMG' && t.dataset && t.dataset.search && !t.dataset.phDone){
+    t.dataset.phDone='1'; t.src=placeholder(t.dataset.search);
+  }
+},true);
+
+const TRIPS = {
+  A:{
+    id:'A', name:'The Silk Road', short:'Silk Road', endHub:'Beijing', mapLabels:true,
+    verdict:'Pick the Silk Road for once-in-a-lifetime desert epics, Great-Wall history and guaranteed clear, crisp skies.',
+    book:{transport:'Shenzhen→Dunhuang flights connect via Xi\'an or Chengdu (no direct) plus an overnight sleeper — book early.', prebook:{b:'Pre-book grottoes, balloon & wall',s:'Mogao Grottoes (foreigners buy in person — office shuts 31 Oct!), Zhangye balloon, Terracotta Army, Jiankou guide.'}, pack:'Warm layers for freezing desert nights; sun & sand protection.', insurance:'Must cover buggies/ATVs, the plank walk & wild-wall hiking.'},
+    theme:{
+      '--bg':'#1a1210','--bg-2':'#241713','--surface':'#2a1c17','--surface-2':'#33241d',
+      '--text':'#f6ece2','--muted':'#c9ac97','--accent':'#e8a05a','--accent-2':'#c05a34',
+      '--accent-3':'#b98a5e','--line':'rgba(232,160,90,.22)','--glow':'rgba(232,160,90,.42)',
+      '--hero-a':'#3a2016','--hero-b':'#160f0d'
+    },
+    hero:{
+      title:'The <em>Silk</em> Road',
+      sub:'Deserts, dunes and the Great Wall’s wild west — epic history stitched to sand-sports under crystal-clear, cold October skies.',
+      hub:'Return via Doha ✈', search:'Mingsha singing sand dunes Crescent Lake sunset aerial'
+    },
+    facts:[['7','Stops'],['~4,200km','Overland + air'],['£2.3–2.9k','Per person'],['Cold · dry','Weather']],
+    stops:[
+      {id:'a1',dates:'24–26 Oct',place:'Hong Kong + Shenzhen',region:'The start line',
+        blurb:'Land in Hong Kong, meet the crew. Victoria Peak at dusk, the harbour light show and Temple Street night market — then a morning train across the border into Shenzhen.',
+        acts:['Victoria Peak & harbour','Temple Street night market','Morning train to Shenzhen'],
+        leg:'✈ Arrive HKG · 🚄 train to Shenzhen', tags:['culture','food','arrive'],
+        search:'Hong Kong Victoria Peak skyline night', coords:{x:646,y:647}},
+      {id:'a2',dates:'27–29 Oct',place:'Dunhuang',region:'The Gobi',
+        blurb:'Fly deep into the desert. Ride camels over the Mingsha singing dunes to Crescent Lake at sunset, sandboard the ridges, then tear across the Yardang “Devil City” by 4x4 and dune buggy.',
+        acts:['Mogao Grottoes','Mingsha dunes · camel · sandboard','Crescent Lake sunset','Dune buggies / ATVs','Yardang “Devil City” 4x4'],
+        leg:'✈ Shenzhen → Dunhuang (via Xi\'an/Chengdu)', tags:['desert','adrenaline','pre-book'],
+        search:'Mingsha singing sand dunes Crescent Lake', coords:{x:355,y:334}},
+      {id:'a3',dates:'30 Oct',place:'Jiayuguan',region:'Western fort',
+        blurb:'Stand where the Great Wall meets the desert — the mighty western fort, the Overhanging Wall and the First Beacon cliff walk above the Gobi. Optional glide over the dunes.',
+        acts:['Jiayuguan Fort','Overhanging Wall','First Beacon cliff walk','Optional Gobi gliding'],
+        leg:'🚄 High-speed ~3h', tags:['culture','heights','optional'],
+        search:'Jiayuguan fort Great Wall Gobi', coords:{x:409,y:341}},
+      {id:'a4',dates:'31 Oct–1 Nov',place:'Zhangye',region:'Danxia colour',
+        blurb:'The Danxia Rainbow Mountains — hills striped in amber, rust and rose. Up before dawn for a hot-air balloon over the colour (weather permitting).',
+        acts:['Danxia Rainbow Mountains','Dawn hot-air balloon (weather)'],
+        leg:'🚗 Coach transfer', tags:['nature','weather-dependent'],
+        search:'Zhangye Danxia rainbow mountains', coords:{x:442,y:358}},
+      {id:'a5',dates:'1 Nov',place:'Lanzhou',region:'Yellow River',
+        blurb:'Ride a sheepskin raft on the Yellow River, slurp a bowl of Lanzhou beef noodles at the source, then board an overnight sleeper train east.',
+        acts:['Yellow River sheepskin raft','Lanzhou beef noodles','Overnight sleeper train'],
+        leg:'🚂 Overnight sleeper train', tags:['food','culture'],
+        search:'Lanzhou Yellow River Zhongshan bridge', coords:{x:492,y:412}},
+      {id:'a6',dates:'2–3 Nov',place:'Xi’an',region:'Ancient capital',
+        blurb:'Meet the Terracotta Army, cycle the ancient city wall and graze the Muslim Quarter. For the brave: the vertigo plank walk on Mount Hua.',
+        acts:['Terracotta Army','City wall cycle','Muslim Quarter eats','Mount Hua plank walk'],
+        leg:'🚂 Arrive on sleeper', tags:['culture','heights','pre-book'],
+        search:'Xi\'an Terracotta Army', coords:{x:569,y:443}},
+      {id:'a7',dates:'4–6 Nov',place:'Beijing',region:'The wild wall',
+        blurb:'Bullet train to the capital. Hike the wild, crumbling Jiankou across to the restored Mutianyu, then toboggan back down. One last feast before flying home.',
+        acts:['Jiankou → Mutianyu wild wall','Toboggan descent','Beijing farewell feast'],
+        leg:'🚄 Bullet train ~5h · ✈ fly home', tags:['culture','adrenaline','fly home'],
+        search:'Mutianyu Great Wall autumn', coords:{x:681,y:339}}
+    ],
+    gallery:[
+      {term:'Mingsha singing sand dunes Crescent Lake',cat:'desert'},
+      {term:'Mogao Grottoes',cat:'culture'},
+      {term:'Yardang Devil City',cat:'desert'},
+      {term:'Jiayuguan fort Great Wall Gobi',cat:'culture'},
+      {term:'Zhangye Danxia rainbow mountains',cat:'nature',video:true},
+      {term:'Lanzhou Yellow River Zhongshan bridge',cat:'food'},
+      {term:'Xi\'an Terracotta Army',cat:'culture'},
+      {term:'Huashan plank walk',cat:'heights',video:true},
+      {term:'Mutianyu Great Wall autumn',cat:'heights'},
+      {term:'Jiankou wild Great Wall',cat:'heights',video:true}
+    ],
+    costs:{flights:[900,1050],trains:[190,270],hotels:[520,720],activities:[430,560],food:[260,300]},
+    compare:{
+      weather:'Cold, dry, crystal-clear (~0–15°C). Desert nights bite.',
+      vibe:'Epic history + desert sports. Big, cinematic, remote.',
+      ease:'Longer legs — one internal flight + an overnight sleeper train.',
+      season:'Peak desert season: low rain, huge visibility, thin crowds.',
+      cost:'£2,300 – £2,900 pp'
+    }
+  },
+  B:{
+    id:'B', name:'The Southern Karst', short:'Southern Karst', endHub:'Chongqing', mapLabels:true,
+    verdict:'Pick the Southern Karst for cheap, easy logistics and non-stop vertical thrills in green karst country — just pack for rain.',
+    book:{transport:'HSR Shenzhen→Yangshuo (~4.5h via Guilin) → Zhangjiajie (~7h) → Chongqing (new 2h line); book on Trip.com/12306.', prebook:{b:'Pre-book parks & adrenaline',s:'Zhangjiajie park pass, Tianmen (cableway may be closed for maintenance — check), glass-bridge bungee.'}, pack:'Light layers + a proper rain shell; grippy shoes for wet rock.', insurance:'Must cover climbing, the bungee & high ropes.'},
+    theme:{
+      '--bg':'#0e1614','--bg-2':'#101d1a','--surface':'#122420','--surface-2':'#16302a',
+      '--text':'#eaf5ef','--muted':'#9dc3b4','--accent':'#54c3a0','--accent-2':'#2f8f7c',
+      '--accent-3':'#7fb0a8','--line':'rgba(84,195,160,.22)','--glow':'rgba(84,195,160,.4)',
+      '--hero-a':'#123028','--hero-b':'#0c1311'
+    },
+    hero:{
+      title:'The Southern <em>Karst</em>',
+      sub:'Vertical adrenaline and jade-green karst — climbing, glass skywalks and river kayaks through mild, misty, mountain country.',
+      hub:'Return via Doha ✈', search:'Yangshuo Li River karst mountains mist aerial'
+    },
+    facts:[['4','Bases'],['~1,900km','Mostly HSR'],['£2.1–2.8k','Per person'],['Mild · green','Weather']],
+    stops:[
+      {id:'b1',dates:'24–26 Oct',place:'Hong Kong + Shenzhen',region:'The start line',
+        blurb:'Same launch: land in Hong Kong, meet the crew. Victoria Peak at dusk, the harbour show and Temple Street market — then the morning train to Shenzhen.',
+        acts:['Victoria Peak & harbour','Temple Street night market','Morning train to Shenzhen'],
+        leg:'✈ Arrive HKG · 🚄 train to Shenzhen', tags:['culture','food','arrive'],
+        search:'Hong Kong Victoria Peak skyline night', coords:{x:646,y:647}},
+      {id:'b2',dates:'27–29 Oct',place:'Yangshuo',region:'Guangxi karst',
+        blurb:'High-speed south to the limestone. Clip into 500+ climbing routes, kayak the jade Yulong River, drift up at dawn by balloon and moped through the rice fields. Xianggong Hill for sunset.',
+        acts:['Rock climbing (500+ routes)','Yulong River kayak','Dawn hot-air balloon','Caving + moped rice fields','Xianggong Hill sunset'],
+        leg:'🚄 HSR ~4.5h (via Guilin)', tags:['climbing','adrenaline','weather-dependent'],
+        search:'Yangshuo Li River karst', coords:{x:592,y:608}},
+      {id:'b3',dates:'30 Oct–1 Nov',place:'Zhangjiajie',region:'Avatar mountains',
+        blurb:'The floating “Avatar” pillars — ride the Bailong glass elevator up, walk the Tianmen skywalk to Heaven’s Gate, then the Grand Canyon glass bridge with a bungee and a giant swing.',
+        acts:['Avatar “Hallelujah” mountains','Bailong Elevator','Tianmen skywalk + Heaven’s Gate (eco-bus; cableway may be closed)','Grand Canyon glass bridge + world’s-highest bungee'],
+        leg:'🚄 HSR ~7h + transfer', tags:['heights','adrenaline','pre-book'],
+        search:'Zhangjiajie Avatar Hallelujah mountains', coords:{x:592,y:535}},
+      {id:'b4',dates:'2–6 Nov',place:'Chongqing',region:'Cyberpunk + Wulong',
+        blurb:'End in the cyberpunk megacity — Hongyadong glowing over the river, hotpot that bites back, then the Wulong Karst’s Three Natural Bridges and fissure gorge, with Dazu carvings as a buffer before home.',
+        acts:['Hongyadong + cyberpunk city','Chongqing hotpot','Wulong Three Natural Bridges','Fissure gorge + glass skywalk','Dazu carvings (buffer)'],
+        leg:'🚄 HSR ~2h · ✈ fly home', tags:['food','nature','fly home'],
+        search:'Chongqing Hongyadong night', coords:{x:533,y:528}}
+    ],
+    gallery:[
+      {term:'Yangshuo Li River karst',cat:'nature'},
+      {term:'Yangshuo rock climbing',cat:'climbing',video:true},
+      {term:'Yulong River bamboo raft',cat:'nature'},
+      {term:'Yangshuo hot air balloon',cat:'nature'},
+      {term:'Zhangjiajie Avatar Hallelujah mountains',cat:'heights',video:true},
+      {term:'Bailong Elevator',cat:'heights'},
+      {term:'Tianmen Mountain glass skywalk',cat:'heights',video:true},
+      {term:'Zhangjiajie glass bridge',cat:'heights'},
+      {term:'Chongqing Hongyadong night',cat:'culture'},
+      {term:'Wulong Karst Three Natural Bridges',cat:'nature'}
+    ],
+    costs:{flights:[780,920],trains:[210,300],hotels:[480,700],activities:[400,560],food:[230,320]},
+    compare:{
+      weather:'Mild, green, rain/mist risk (~12–22°C). Views can hide in cloud.',
+      vibe:'Vertical adrenaline + karst nature. Lush, dramatic, playful.',
+      ease:'Shorter HSR hops between 4 bases — easiest logistics of the two.',
+      season:'Autumn shoulder — lush and quiet, but mist may veil the peaks.',
+      cost:'£2,100 – £2,800 pp'
+    }
+  },
+  C:{
+    id:'C', name:'The Yunnan Highlands', short:'Yunnan Highlands', endHub:'Chengdu', mapLabels:false,
+    verdict:'Pick Yunnan for the deepest gorge on earth, Tibetan-edge monasteries and mirror-terraces at their once-a-year flooded best.',
+    book:{transport:'HSR Shenzhen→Kunming→Lijiang; bus/car for the gorge & Shangri-La; fly Shangri-La→Kunming, then Kunming→Chengdu.', prebook:{b:'Pre-book cable car + terraces',s:'Jade Dragon cable car (check its late-Oct maintenance window), gorge guesthouses, Yuanyang sunrise viewpoints.'}, pack:'Layers for 3,300m Shangri-La nights; broken-in boots for the gorge; sunhat for the terraces.', insurance:'Must cover trekking & altitude to ~3,400m.'},
+    theme:{
+      '--bg':'#16121e','--bg-2':'#1e1728','--surface':'#241b30','--surface-2':'#2e2340',
+      '--text':'#f2ecf6','--muted':'#bfb0cf','--accent':'#e0a63a','--accent-2':'#8a5fb0',
+      '--accent-3':'#c98fb0','--line':'rgba(224,166,58,.22)','--glow':'rgba(224,166,58,.4)',
+      '--hero-a':'#2c2140','--hero-b':'#130f1a'
+    },
+    hero:{
+      title:'The Yunnan <em>Highlands</em>',
+      sub:'Ancient trading towns, the deepest gorge on earth and Tibetan monastery country — down to mirror-flat rice terraces at their seasonal peak.',
+      hub:'Home via Chengdu ✈', search:'Yuanyang Hani rice terraces'
+    },
+    facts:[['7','Stops'],['~2,600km','HSR + road'],['£2.0–2.7k','Per person'],['Mild · alpine','Weather']],
+    stops:[
+      {id:'c0',dates:'24–26 Oct',place:'Hong Kong + Shenzhen',region:'The start line',
+        blurb:'Land in Hong Kong, meet the crew — Victoria Peak, the harbour and Temple Street — then the morning train across to Shenzhen.',
+        acts:['Victoria Peak & harbour','Temple Street night market','Morning train to Shenzhen'],
+        leg:'✈ Arrive HKG · 🚄 train to Shenzhen', tags:['culture','food','arrive'],
+        search:'Hong Kong Victoria Peak skyline night', coords:{x:646,y:647}},
+      {id:'c1',dates:'27 Oct',place:'Kunming',region:'Spring City',
+        blurb:'Fly to the mild “Spring City” for a gentle first altitude step — the minority-culture museum, crossing-bridge noodles and the surreal Stone Forest karst.',
+        acts:['Yunnan minority museum','Stone Forest (Shilin) karst','Crossing-bridge noodles'],
+        leg:'✈ Shenzhen → Kunming', tags:['culture','nature','arrive'],
+        search:'Kunming Stone Forest', coords:{x:477,y:607}},
+      {id:'c2',dates:'28–29 Oct',place:'Lijiang',region:'Naxi old town',
+        blurb:'UNESCO cobbled lanes and canals below Jade Dragon Snow Mountain — ride the glacier cable car to 4,500m, then wander Blue Moon Valley.',
+        acts:['Lijiang Old Town (Naxi)','Jade Dragon Snow Mountain cable car','Blue Moon Valley'],
+        leg:'🚄 HSR ~3.5h', tags:['culture','heights','pre-book'],
+        search:'Lijiang old town Naxi', coords:{x:438,y:574}},
+      {id:'c3',dates:'30–31 Oct',place:'Tiger Leaping Gorge',region:'The high trail',
+        blurb:'Trek the classic two-day high trail along one of the deepest gorges on earth — the “28 Bends”, cliff-edge guesthouses and the roaring Jinsha below.',
+        acts:['Two-day high-trail trek','The “28 Bends” climb','Cliffside guesthouse night'],
+        leg:'🚗 Bus to Qiaotou trailhead', tags:['adrenaline','heights','weather-dependent'],
+        search:'Tiger Leaping Gorge', coords:{x:437,y:568}},
+      {id:'c4',dates:'1 Nov',place:'Shangri-La',region:'Tibetan edge',
+        blurb:'Cross onto the plateau (3,380m) — Ganden Sumtseling, Yunnan’s largest Tibetan monastery, and the 1,300-year-old Dukezong old town. Take it slow.',
+        acts:['Ganden Sumtseling Monastery','Dukezong old town','Acclimatise + butter tea'],
+        leg:'🚗 Drive via Daju ~3h', tags:['culture','altitude'],
+        search:'Shangri-La Ganden Sumtseling monastery', coords:{x:430,y:557}},
+      {id:'c5',dates:'2–3 Nov',place:'Meili / Deqin',region:'Sacred snows',
+        blurb:'The Yunnan-Tibet highway to sacred Kawagebo (6,740m) — dawn alpenglow on all thirteen peaks from Feilai, then a hike to the low-altitude Mingyong Glacier.',
+        acts:['Kawagebo sunrise (Feilai)','Mingyong Glacier hike','Tibetan village lunch'],
+        leg:'🚗 Highway to Deqin ~8h', tags:['nature','heights','weather-dependent'],
+        search:'Meili Snow Mountain Kawagebo', coords:{x:419,y:546}},
+      {id:'c6',dates:'4–6 Nov',place:'Yuanyang',region:'Hani terraces',
+        blurb:'Fly south for the finale: 3,000 flooded Hani rice terraces catching fire at sunrise from Duoyishu, Hani villages, then home via Kunming and Chengdu.',
+        acts:['Duoyishu sunrise terraces','Hani village walk','Laohuzui panorama'],
+        leg:'✈ via Kunming · ✈ home via Chengdu', tags:['nature','culture','fly home'],
+        search:'Yuanyang Hani rice terraces', coords:{x:476,y:634}}
+    ],
+    gallery:[
+      {term:'Yuanyang Hani rice terraces',cat:'nature'},
+      {term:'Tiger Leaping Gorge',cat:'heights',video:true},
+      {term:'Jade Dragon Snow Mountain',cat:'heights'},
+      {term:'Lijiang old town Naxi',cat:'culture'},
+      {term:'Shangri-La Ganden Sumtseling monastery',cat:'culture'},
+      {term:'Meili Snow Mountain Kawagebo',cat:'nature'},
+      {term:'Mingyong Glacier',cat:'nature',video:true},
+      {term:'Kunming Stone Forest',cat:'nature'}
+    ],
+    costs:{flights:[820,980],trains:[240,360],hotels:[430,760],activities:[300,360],food:[210,240]},
+    compare:{
+      weather:'Mild days, alpine nights (~-3–20°C); dry, clear autumn light.',
+      vibe:'Trekking, deep gorges & Tibetan-edge culture. Big-sky highlands.',
+      ease:'Staged altitude gain plus some long mountain drives.',
+      season:'Peak clarity and Yuanyang’s terraces just flooded — prime window.',
+      cost:'£2,000 – £2,700 pp'
+    }
+  },
+  D:{
+    id:'D', name:'The Kham Frontier', short:'Kham Frontier', endHub:'Chengdu', mapLabels:false,
+    verdict:'Pick the Kham Frontier for pandas, the world’s biggest Buddha and Yading’s turquoise alpine lakes — caught on the season’s knife-edge.',
+    book:{transport:'Fly/HSR Shenzhen→Chengdu; long mountain drives Chengdu→Kangding→Daocheng; fly Daocheng Yading→Chengdu (tiny airport — book early).', prebook:{b:'Pre-book pandas & Yading',s:'Panda base morning slot, Yading entry + shuttle, and the Daocheng Yading flights.'}, pack:'Altitude meds for Yading (4,700m), a down jacket and glacier sunglasses.', insurance:'Must cover high altitude to ~4,700m.'},
+    theme:{
+      '--bg':'#1b1013','--bg-2':'#241419','--surface':'#2c1820','--surface-2':'#371d27',
+      '--text':'#f6e9ec','--muted':'#d0a7b0','--accent':'#e05664','--accent-2':'#e0983f',
+      '--accent-3':'#c98a72','--line':'rgba(224,86,100,.22)','--glow':'rgba(224,86,100,.4)',
+      '--hero-a':'#3a1820','--hero-b':'#160d10'
+    },
+    hero:{
+      title:'The <em>Kham</em> Frontier',
+      sub:'Bamboo forests and giant Buddhas rising into prayer-flag passes and 4,700m turquoise lakes — Sichuan at its most cinematic.',
+      hub:'Home via Chengdu ✈', search:'Daocheng Yading Milk Lake'
+    },
+    facts:[['6','Bases'],['~2,400km','Air + mountain road'],['£2.0–2.8k','Per person'],['Crisp · high','Weather']],
+    stops:[
+      {id:'d0',dates:'24–26 Oct',place:'Hong Kong + Shenzhen',region:'The start line',
+        blurb:'Same launch — Hong Kong’s Peak and harbour, Shenzhen’s neon skyline — before flying inland to Sichuan.',
+        acts:['Victoria Peak & harbour','Shenzhen skyline','Cross-border train'],
+        leg:'✈ Arrive HKG · 🚄 to Shenzhen', tags:['culture','food','arrive'],
+        search:'Hong Kong Victoria Peak skyline night', coords:{x:646,y:647}},
+      {id:'d1',dates:'27–28 Oct',place:'Chengdu',region:'Land of pandas',
+        blurb:'Dawn at the Giant Panda base, then teahouse culture, face-changing opera and a proper Sichuan hotpot rampage through the old alleys.',
+        acts:['Giant Panda Base (dawn)','Jinli & Kuanzhai alleys','Face-changing opera + hotpot'],
+        leg:'✈ Shenzhen → Chengdu', tags:['nature','culture','arrive'],
+        search:'Chengdu giant panda', coords:{x:496,y:509}},
+      {id:'d2',dates:'29–30 Oct',place:'Leshan + Emei',region:'Buddha & summit',
+        blurb:'The 71m Leshan Giant Buddha carved into the cliff, then up sacred Mount Emei to the gilded Golden Summit and its sea of clouds.',
+        acts:['Leshan Giant Buddha','Mount Emei Golden Summit','Monastery guesthouse night'],
+        leg:'🚄 HSR + road ~2h', tags:['culture','heights','nature'],
+        search:'Leshan Giant Buddha', coords:{x:491,y:528}},
+      {id:'d3',dates:'31 Oct',place:'Kangding',region:'Gateway to Kham',
+        blurb:'Climb the Ya’an expressway into Tibetan Kham — Kangding (2,560m), Nanwu Monastery and the old caravan-town air below Gongga Shan.',
+        acts:['Nanwu Monastery','Paoma Mountain','Acclimatise at 2,560m'],
+        leg:'🚗 Drive ~5h', tags:['culture','altitude'],
+        search:'Xinduqiao Sichuan', coords:{x:464,y:519}},
+      {id:'d4',dates:'1 Nov',place:'Tagong',region:'Grassland Kham',
+        blurb:'Photographers’ paradise: golden larches at Xinduqiao, then Tagong’s grassland monastery, yak herders and the sacred Yala peak.',
+        acts:['Xinduqiao golden valley','Tagong Monastery','Grassland & yak herders'],
+        leg:'🚗 Drive ~3h', tags:['culture','nature','altitude'],
+        search:'Tagong grassland monastery', coords:{x:458,y:515}},
+      {id:'d5',dates:'2–6 Nov',place:'Daocheng Yading',region:'The alpine finale',
+        blurb:'Over the Sichuan-Tibet highway to Yading — snow peaks, gold larch forest and the turquoise Milk Lake at 4,700m — then fly out via Chengdu.',
+        acts:['Yading Nature Reserve','Milk Lake + Chonggu meadow','Chenresig snow peak'],
+        leg:'🚗 to Yading · ✈ home via Chengdu', tags:['nature','heights','weather-dependent'],
+        search:'Daocheng Yading Milk Lake', coords:{x:440,y:547}}
+    ],
+    gallery:[
+      {term:'Daocheng Yading Milk Lake',cat:'nature'},
+      {term:'Chengdu giant panda',cat:'nature',video:true},
+      {term:'Leshan Giant Buddha',cat:'culture'},
+      {term:'Mount Emei golden summit',cat:'heights'},
+      {term:'Tagong grassland monastery',cat:'culture'},
+      {term:'Xinduqiao Sichuan',cat:'nature'}
+    ],
+    costs:{flights:[850,1050],trains:[260,420],hotels:[380,720],activities:[300,360],food:[210,250]},
+    compare:{
+      weather:'Crisp and clear; Chengdu mild, Yading sub-zero at night.',
+      vibe:'Pandas, giant Buddhas and 4,700m turquoise-lake alpine.',
+      ease:'Long mountain drives and a very-high-altitude airport.',
+      season:'Last good week for Yading before snow shuts the upper trails.',
+      cost:'£2,000 – £2,800 pp'
+    }
+  },
+  E:{
+    id:'E', name:'Roof of the World', short:'Roof of the World', endHub:'Chengdu', mapLabels:false,
+    verdict:'Pick Tibet only if the group is fit and organised — the payoff is Everest’s north face at dawn from 5,200m, with golden monasteries en route.',
+    book:{transport:'Fly HK→Lhasa (brief Chengdu touch); a licensed guide + private vehicle overland to Everest; fly Lhasa→Chengdu→Doha.', prebook:{b:'Permits + guide (apply early Oct)',s:'Tibet Travel + Alien + Military permits via a licensed agency, plus a 10-day-ahead Potala slot. No independent travel.'}, pack:'Expedition sleeping bag & down jacket for −15°C base-camp nights; Diamox.', insurance:'Must cover trekking above 5,000m + emergency evacuation.'},
+    theme:{
+      '--bg':'#0d1420','--bg-2':'#111c2c','--surface':'#152234','--surface-2':'#1b2c42',
+      '--text':'#e9f1f8','--muted':'#a5bcd0','--accent':'#4f9fd6','--accent-2':'#e6b34e',
+      '--accent-3':'#8fb8d6','--line':'rgba(79,159,214,.22)','--glow':'rgba(79,159,214,.4)',
+      '--hero-a':'#16283e','--hero-b':'#0b111c'
+    },
+    hero:{
+      title:'Roof of the <em>World</em>',
+      sub:'Sacred silence, savage altitude and the most photogenic road on the planet — Lhasa’s golden temples out to Everest Base Camp.',
+      hub:'Home via Chengdu ✈', search:'Everest Base Camp north face'
+    },
+    facts:[['6','Stops'],['~1,900km','Fly + overland'],['£1.8–2.8k','Per person'],['Cold · thin air','Weather']],
+    stops:[
+      {id:'e0',dates:'24–26 Oct',place:'Hong Kong + Shenzhen',region:'The start line',
+        blurb:'Gather in Hong Kong and Shenzhen at sea level — the last easy breathing before the plateau.',
+        acts:['Victoria Peak & harbour','Shenzhen skyline','Cross-border train'],
+        leg:'✈ Arrive HKG · 🚄 to Shenzhen', tags:['culture','food','arrive'],
+        search:'Hong Kong Victoria Peak skyline night', coords:{x:646,y:647}},
+      {id:'e1',dates:'27–29 Oct',place:'Lhasa',region:'Holy city · 3,650m',
+        blurb:'Fly in and acclimatise gently: the Potala Palace, the Jokhang and the pilgrim-thronged Barkhor, plus Sera’s debating monks.',
+        acts:['Potala Palace','Jokhang + Barkhor kora','Sera monastery debates'],
+        leg:'✈ HKG → Lhasa (via Chengdu)', tags:['culture','altitude','pre-book'],
+        search:'Potala Palace Lhasa', coords:{x:302,y:526}},
+      {id:'e2',dates:'30 Oct',place:'Yamdrok + Gyantse',region:'Turquoise & stupas',
+        blurb:'Over the Kamba La pass to holy Yamdrok Lake and the Karola Glacier, then Gyantse’s extraordinary tiered Kumbum stupa.',
+        acts:['Yamdrok Lake viewpoint','Karola Glacier','Gyantse Kumbum stupa'],
+        leg:'🚗 Drive ~7h', tags:['nature','culture','heights'],
+        search:'Yamdrok Lake', coords:{x:288,y:538}},
+      {id:'e3',dates:'31 Oct',place:'Shigatse',region:'Panchen Lama’s seat',
+        blurb:'Tashilhunpo Monastery — the vast gold-roofed seat of the Panchen Lama — and a last supply stop before the mountain.',
+        acts:['Tashilhunpo Monastery','Restock cold-weather kit','Sleep at 3,840m'],
+        leg:'🚗 Drive ~2h', tags:['culture','altitude'],
+        search:'Tashilhunpo monastery Shigatse', coords:{x:268,y:533}},
+      {id:'e4',dates:'1 Nov',place:'Shegar / Tingri',region:'Plateau approach',
+        blurb:'West on the G318 across the high plateau to Shegar (~4,000m), poised below the Pang La pass and its first great Himalayan panorama.',
+        acts:['G318 plateau drive','Pang La viewpoint (weather)','Overnight ~4,000m'],
+        leg:'🚗 Drive ~4–5h', tags:['nature','altitude','remote'],
+        search:'Rongbuk monastery Everest', coords:{x:243,y:543}},
+      {id:'e5',dates:'2–6 Nov',place:'Everest Base Camp',region:'Rongbuk · 5,200m',
+        blurb:'Over Pang La to the Rongbuk valley — Everest’s north face filling the sky, the world’s highest monastery and a dawn no one forgets. Then home via Lhasa.',
+        acts:['Everest north face','Rongbuk Monastery','Sunrise over the summit'],
+        leg:'🚗 to EBC · ✈ home via Lhasa & Chengdu', tags:['heights','adrenaline','remote'],
+        search:'Everest Base Camp north face', coords:{x:238,y:552}}
+    ],
+    gallery:[
+      {term:'Everest Base Camp north face',cat:'heights',video:true},
+      {term:'Potala Palace Lhasa',cat:'culture'},
+      {term:'Yamdrok Lake',cat:'nature'},
+      {term:'Tashilhunpo monastery Shigatse',cat:'culture'},
+      {term:'Rongbuk monastery Everest',cat:'culture'},
+      {term:'Jokhang temple Lhasa',cat:'culture'},
+      {term:'Gyantse Kumbum stupa',cat:'culture'}
+    ],
+    costs:{flights:[760,1000],trains:[120,200],hotels:[280,560],activities:[400,700],food:[240,340]},
+    compare:{
+      weather:'Cold, dry, razor-clear; base-camp nights −10 to −15°C.',
+      vibe:'Sacred silence, savage altitude, the best Everest views on earth.',
+      ease:'Permits + a compulsory guide — the most demanding of all seven.',
+      season:'Superb dry-season visibility, but base-camp tents have shut for winter.',
+      cost:'£1,800 – £2,800 pp'
+    }
+  },
+  F:{
+    id:'F', name:'The Wild West', short:'Wild West', endHub:'Guangzhou', mapLabels:false,
+    verdict:'Pick the Wild West for a Silk Road that feels like Central Asia — Kashgar’s bazaar and Karakul Lake beneath 7,500m Muztagh Ata.',
+    book:{transport:'Fly Shenzhen→Ürümqi; HSR to Turpan; fly Ürümqi→Kashgar; private 4x4 on the Karakoram Highway; fly Kashgar→Guangzhou.', prebook:{b:'Border permit + internal flights',s:'The Kashgar–Tashkurgan Border-Area permit (4–6 wks via a local agency) and every domestic flight — book early.'}, pack:'Serious warm layers for Karakul (−10°C nights); passport handy for checkpoints.', insurance:'Must cover remote high-mountain travel.'},
+    theme:{
+      '--bg':'#141620','--bg-2':'#1a1d2a','--surface':'#1f2331','--surface-2':'#282d3e',
+      '--text':'#f2efe8','--muted':'#b9b6c0','--accent':'#d99450','--accent-2':'#2fa7a0',
+      '--accent-3':'#c9a06a','--line':'rgba(217,148,80,.22)','--glow':'rgba(217,148,80,.4)',
+      '--hero-a':'#2a2438','--hero-b':'#101219'
+    },
+    hero:{
+      title:'The <em>Wild</em> West',
+      sub:'Desert cities, Uyghur soul and glacial lakes under the Karakoram — China’s remotest corner, a world away from the eastern Silk Road.',
+      hub:'Home via Guangzhou ✈', search:'Karakul Lake Muztagh Ata'
+    },
+    facts:[['5','Bases'],['~4,000km','Flights + KKH'],['£2.2–3.4k','Per person'],['Cold · remote','Weather']],
+    stops:[
+      {id:'f0',dates:'24–26 Oct',place:'Hong Kong + Shenzhen',region:'The start line',
+        blurb:'Meet in Hong Kong and Shenzhen before flying 4,000km northwest into Chinese Central Asia.',
+        acts:['Victoria Peak & harbour','Shenzhen skyline','Cross-border train'],
+        leg:'✈ Arrive HKG · 🚄 to Shenzhen', tags:['culture','food','arrive'],
+        search:'Hong Kong Victoria Peak skyline night', coords:{x:646,y:647}},
+      {id:'f1',dates:'27–28 Oct',place:'Ürümqi',region:'Heart of Tianshan',
+        blurb:'The world’s most inland city — the Tarim mummies at the museum, then a day at alpine Heavenly Lake (Tianchi) under the golden Tianshan.',
+        acts:['Xinjiang Regional Museum','Heavenly Lake (Tianchi)','Erdaoqiao night bazaar'],
+        leg:'✈ Shenzhen → Ürümqi', tags:['culture','nature','arrive'],
+        search:'Heavenly Lake Tianshan', coords:{x:249,y:260}},
+      {id:'f2',dates:'29–30 Oct',place:'Turpan',region:'Desert basin',
+        blurb:'China’s fastest 35-minute train to the Turpan depression — the Flaming Mountains, the cliff-carved Jiaohe ruins and 2,000-year-old karez canals.',
+        acts:['Jiaohe Ancient City','Flaming Mountains','Karez canals + grape valley'],
+        leg:'🚄 High-speed 35 min', tags:['desert','culture','heights'],
+        search:'Turpan Flaming Mountains', coords:{x:273,y:278}},
+      {id:'f3',dates:'31 Oct–2 Nov',place:'Kashgar',region:'Silk Road soul',
+        blurb:'Fly deep west to the great Uyghur crossroads — the huge Sunday bazaar, the Id Kah Mosque and a mud-brick Old City unchanged for centuries.',
+        acts:['Sunday Grand Bazaar','Id Kah Mosque + Old City','Artisan quarter'],
+        leg:'✈ via Ürümqi → Kashgar', tags:['culture','food','pre-book'],
+        search:'Kashgar old city', coords:{x:75,y:347}},
+      {id:'f4',dates:'3–6 Nov',place:'Karakul / Tashkurgan',region:'The Karakoram',
+        blurb:'The Karakoram Highway climbs to Karakul Lake (3,600m) beneath 7,546m Muztagh Ata, on to the Tashkurgan stone fort — then home via Guangzhou.',
+        acts:['Karakoram Highway drive','Karakul Lake + Muztagh Ata','Tashkurgan Stone City'],
+        leg:'🚙 KKH 4x4 · ✈ home via Guangzhou', tags:['nature','heights','remote'],
+        search:'Karakul Lake Muztagh Ata', coords:{x:63,y:380}}
+    ],
+    gallery:[
+      {term:'Karakul Lake Muztagh Ata',cat:'nature'},
+      {term:'Kashgar old city',cat:'culture'},
+      {term:'Turpan Flaming Mountains',cat:'desert'},
+      {term:'Jiaohe ruins Turpan',cat:'culture'},
+      {term:'Heavenly Lake Tianshan',cat:'nature'},
+      {term:'Tashkurgan Stone City',cat:'culture'}
+    ],
+    costs:{flights:[1000,1300],trains:[120,200],hotels:[420,760],activities:[380,600],food:[240,340]},
+    compare:{
+      weather:'Mild oases, −10°C nights at Karakul; huge clear skies.',
+      vibe:'Uyghur bazaars, desert ruins and the Karakoram’s giants.',
+      ease:'Enormous distances — fly between hubs; border permits needed.',
+      season:'Great in the deserts; the Karakoram is on its cold edge.',
+      cost:'£2,200 – £3,400 pp'
+    }
+  },
+  G:{
+    id:'G', name:'Caves & Karst', short:'Guizhou Karst', endHub:'Guangzhou', mapLabels:false,
+    verdict:'Pick Guizhou for the best-value adventure: world-class climbing, China’s biggest waterfall and Miao & Dong villages — no altitude, easy logistics.',
+    book:{transport:'HSR/fly Shenzhen→Guiyang; road to Getu & Huangguoshu; HSR to Kaili for the villages; HSR Guiyang→Guangzhou.', prebook:{b:'Climbing guides + village stays',s:'Getu Climbing Association guides & gear and the park permit; book Zhaoxing & Xijiang guesthouses ahead.'}, pack:'Climbing shoes/harness (or rent locally); layers for cool, clear evenings.', insurance:'Must cover rock climbing & caving.'},
+    theme:{
+      '--bg':'#121418','--bg-2':'#181b21','--surface':'#1d2128','--surface-2':'#262b34',
+      '--text':'#eef1f5','--muted':'#a9b3c0','--accent':'#cba24a','--accent-2':'#7f8b9c',
+      '--accent-3':'#b7c0cc','--line':'rgba(203,162,74,.24)','--glow':'rgba(203,162,74,.38)',
+      '--hero-a':'#20242c','--hero-b':'#0f1114'
+    },
+    hero:{
+      title:'Caves &amp; <em>Karst</em>',
+      sub:'Descend into cathedral caves, climb 200-metre limestone walls and sleep in torch-lit villages while autumn turns the karst gold.',
+      hub:'Home via Guangzhou ✈', search:'Huangguoshu Waterfall'
+    },
+    facts:[['6','Stops'],['~1,500km','HSR + road'],['£1.9–2.6k','Per person'],['Dry · clear','Weather']],
+    stops:[
+      {id:'g0',dates:'24–26 Oct',place:'Hong Kong + Shenzhen',region:'The start line',
+        blurb:'Assemble in Hong Kong and Shenzhen, gear up, then high-speed rail inland to Guizhou’s karst country.',
+        acts:['Victoria Peak & harbour','Shenzhen street food','Gear check'],
+        leg:'✈ Arrive HKG · 🚄 to Shenzhen', tags:['culture','food','arrive'],
+        search:'Hong Kong Victoria Peak skyline night', coords:{x:646,y:647}},
+      {id:'g1',dates:'27–28 Oct',place:'Guiyang',region:'Karst capital',
+        blurb:'Guizhou’s green capital — Jiaxiu Pavilion over the river, Qingyan ancient town and a night market before meeting the climbing crew.',
+        acts:['Jiaxiu Pavilion','Qingyan Ancient Town','Meet guides + gear'],
+        leg:'🚄 HSR ~5h (or fly)', tags:['culture','food','arrive'],
+        search:'Jiaxiu Pavilion Guiyang', coords:{x:534,y:577}},
+      {id:'g2',dates:'29–31 Oct',place:'Getu Valley',region:'Big-wall karst',
+        blurb:'China’s premier sport-climbing valley: 200m limestone walls, the vast Great Arch, via-ferrata and the swift-filled Swallow Cave.',
+        acts:['Multi-pitch sport climbing','The Great Arch + river raft','Swallow Cave + via ferrata'],
+        leg:'🚗 Transfer ~2.5h', tags:['climbing','adrenaline','pre-book'],
+        search:'Getu River Great Arch', coords:{x:527,y:595}},
+      {id:'g3',dates:'1–2 Nov',place:'Huangguoshu',region:'Waterfalls & caves',
+        blurb:'China’s biggest waterfall — walk behind the 74m curtain — plus the karst pools of Tianxing Bridge and a boat through the Longgong river caves.',
+        acts:['Huangguoshu Waterfall','Water-Curtain Cave walk','Longgong river caves'],
+        leg:'🚗 Road via Anshun ~3h', tags:['nature','weather-dependent'],
+        search:'Huangguoshu Waterfall', coords:{x:520,y:588}},
+      {id:'g4',dates:'3–4 Nov',place:'Xijiang',region:'Miao heartland',
+        blurb:'The world’s largest Miao village — 1,200 stilt houses up the hillside, silver-festival dress and a hands-on silversmithing or batik workshop.',
+        acts:['Xijiang Qianhu Miao village','Silver & batik workshop','Hillside sunset'],
+        leg:'🚄 HSR to Kaili ~1h + shuttle', tags:['culture','food'],
+        search:'Xijiang Miao village', coords:{x:557,y:580}},
+      {id:'g5',dates:'5–6 Nov',place:'Zhaoxing',region:'Dong drum towers',
+        blurb:'The Dong showpiece — five wind-and-rain drum towers, covered bridges and polyphonic Grand Song — then home via Guiyang and Guangzhou.',
+        acts:['Zhaoxing drum towers','Dong Grand Song night','Rice-terrace walk'],
+        leg:'🚗 Drive ~2.5h · ✈ home via Guangzhou', tags:['culture','nature','fly home'],
+        search:'Zhaoxing Dong village drum tower', coords:{x:572,y:590}}
+    ],
+    gallery:[
+      {term:'Huangguoshu Waterfall',cat:'nature',video:true},
+      {term:'Getu River Great Arch',cat:'climbing'},
+      {term:'Xijiang Miao village',cat:'culture'},
+      {term:'Zhaoxing Dong village drum tower',cat:'culture'},
+      {term:'Jiaxiu Pavilion Guiyang',cat:'culture'},
+      {term:'Longgong Dragon Palace cave',cat:'nature'}
+    ],
+    costs:{flights:[780,980],trains:[220,320],hotels:[360,640],activities:[300,420],food:[190,240]},
+    compare:{
+      weather:'Dry, mild, crystal-clear — Guizhou’s best window.',
+      vibe:'Big-wall climbing, cathedral caves and living ethnic villages.',
+      ease:'Easiest of the five — HSR hub + short drives; low altitude.',
+      season:'Late-Oct/early-Nov is peak: dry rock, full waterfalls, thin crowds.',
+      cost:'£1,900 – £2,600 pp'
+    }
+  }
+};
+
+const CAT_LABEL={all:'All',climbing:'Climbing',desert:'Desert',heights:'Heights',food:'Food',culture:'Culture',nature:'Nature'};
+const TRIP_ORDER=['A','B','C','D','E','F','G'];
+
+/* ---- shared book-it checklist, personalised per trip via t.book ---- */
+function checklistFor(t){
+  const bk=t.book||{};
+  return [
+    {b:'Book Qatar Airways flights',s:'Return London ↔ Hong Kong via Doha, home from '+(t.endHub||'a Qatar hub')+'. Book ~4–5 months out.'},
+    {b:'China visa / visa-free transit',s:'Apply for the tourist L visa, or check the latest visa-free transit eligibility.'},
+    {b:'Internal transport',s: bk.transport || 'Book internal flights & high-speed rail early — the popular legs sell out.'},
+    bk.prebook || {b:'Pre-book the headline sights',s:'Reserve timed tickets and guides for the marquee spots before you go.'},
+    {b:'Adventure travel insurance',s: bk.insurance || 'Must cover climbing, heights and high altitude.'},
+    {b:'Pay + connectivity',s:'Set up Alipay/WeChat Pay, grab an eSIM and a working VPN before you fly.'},
+    {b:'Pack for the climate',s: bk.pack || 'Layers for cold nights and sun protection by day.'}
+  ];
+}
+
+/* ===========================================================================
+   PLACEHOLDER MEDIA — themed gradient SVG data-URI so layout looks finished.
+   =========================================================================== */
+function seedHue(str){let h=0;for(let i=0;i<str.length;i++)h=(h*31+str.charCodeAt(i))%360;return h;}
+function placeholder(term){
+  const cur = TRIPS[state.trip];
+  const base = state.trip==='A' ? 28 : 158;         // amber vs jade family
+  const h = (base + (seedHue(term)%40) - 20 + 360)%360;
+  const c1 = `hsl(${h},42%,26%)`, c2 = `hsl(${(h+24)%360},48%,13%)`;
+  const svg =
+    `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>`+
+    `<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>`+
+    `<stop offset='0' stop-color='${c1}'/><stop offset='1' stop-color='${c2}'/></linearGradient></defs>`+
+    `<rect width='800' height='600' fill='url(%23g)'/>`+
+    `<path d='M0 470 L150 360 L280 430 L430 320 L560 420 L700 340 L800 400 L800 600 L0 600 Z' fill='hsl(${h},40%,18%)' opacity='0.55'/>`+
+    `<path d='M0 520 L200 440 L360 500 L520 420 L680 490 L800 450 L800 600 L0 600 Z' fill='hsl(${h},38%,12%)' opacity='0.7'/>`+
+    `<circle cx='650' cy='140' r='46' fill='hsl(${h},55%,60%)' opacity='0.28'/>`+
+    `<text x='40' y='560' font-family='Inter,sans-serif' font-size='23' fill='hsl(${h},30%,82%)' opacity='0.85'>${escapeXml(term)}</text>`+
+    `<text x='40' y='42' font-family='Inter,sans-serif' font-size='15' letter-spacing='3' fill='hsl(${h},30%,80%)' opacity='0.6'>SWAP · data-search</text>`+
+    `</svg>`;
+  return 'data:image/svg+xml;utf8,'+svg.replace(/#/g,'%23');
+}
+function escapeXml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;');}
+
+/* ===========================================================================
+   STATE + THEME
+   =========================================================================== */
+const state = { trip:'A', slider:55, filter:'all' };
+
+function applyTheme(t){
+  const root=document.documentElement;
+  for(const k in t.theme) root.style.setProperty(k, t.theme[k]);
+}
+
+/* ===========================================================================
+   RENDERERS
+   =========================================================================== */
+function renderHero(t){
+  document.getElementById('heroTitle').innerHTML = t.hero.title;
+  document.getElementById('heroSub').textContent = t.hero.sub;
+  document.getElementById('heroHub').textContent = t.hero.hub;
+  document.getElementById('navTrip').textContent = t.name;
+  document.title = `China 2026 · ${t.name} — 24 Oct–6 Nov`;
+  const img=document.getElementById('heroImg');
+  img.setAttribute('data-search', t.hero.search); img.removeAttribute('data-ph-done');
+  img.dataset.phDone=''; img.src = photoUrl(t.hero.search,1280,860);
+  document.getElementById('heroVideo').setAttribute('data-search', t.hero.search+' looping film');
+  document.getElementById('heroFacts').innerHTML = t.facts.map(f=>`<div><b>${f[0]}</b><span>${f[1]}</span></div>`).join('');
+}
+
+// nudge overlapping pins apart so numbers stay readable in tight regional clusters
+function spreadCoords(stops){
+  const MIN=30, pts=stops.map(p=>({x:p.coords.x,y:p.coords.y}));
+  for(let it=0;it<60;it++){
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+      let dx=pts[j].x-pts[i].x, dy=pts[j].y-pts[i].y, d=Math.hypot(dx,dy)||0.01;
+      if(d<MIN){ const push=(MIN-d)/2, ux=dx/d, uy=dy/d;
+        pts[i].x-=ux*push; pts[i].y-=uy*push; pts[j].x+=ux*push; pts[j].y+=uy*push; }
+    }
+  }
+  return pts.map(p=>({x:Math.round(p.x),y:Math.round(p.y)}));
+}
+function renderMap(t){
+  const svg=document.getElementById('mapSvg');
+  const s=t.stops;
+  // real, geographically-accurate China outline (see CHINA_PATH)
+  const land=CHINA_PATH;
+  const disp=spreadCoords(s);
+  let path='M'+disp.map(p=>`${p.x} ${p.y}`).join(' L');
+  const showNames = t.mapLabels!==false;
+  // deliberate label placement to avoid collisions (cross-country routes A & B)
+  const LAB={
+    a1:{a:'L',dy:5}, a2:{a:'L'}, a3:{a:'B'}, a4:{a:'R',dy:-6}, a5:{a:'R',dy:16}, a6:{a:'R',dy:4}, a7:{a:'R'},
+    b1:{a:'L',dy:5}, b2:{a:'R',dy:5}, b3:{a:'R'}, b4:{a:'L'}
+  };
+  let pins='';
+  s.forEach((p,i)=>{
+    const c=disp[i];
+    const def = c.x>520 ? {a:'L'} : {a:'R'};
+    const l = LAB[p.id] || def;
+    let lx,ly,anchor;
+    if(l.a==='B'){ lx=0; ly=(l.dy||26); anchor='middle'; }
+    else if(l.a==='L'){ lx=-18; ly=(l.dy||5); anchor='end'; }
+    else { lx=18; ly=(l.dy||5); anchor='start'; }
+    const nameTxt = showNames ? `<text x="${lx}" y="${ly}" text-anchor="${anchor}">${p.place}</text>` : '';
+    pins+=`<g class="pin" data-target="day-${p.id}" data-frac="${(i/(s.length-1)).toFixed(3)}" transform="translate(${c.x},${c.y})">
+      <circle class="halo" r="16"></circle>
+      <circle class="core" r="12"></circle>
+      <text class="num" text-anchor="middle" dy="4">${i+1}</text>
+      ${nameTxt}
+    </g>`;
+  });
+  svg.innerHTML=`<path class="route-land" d="${land}"></path>
+    <path class="route-line" id="routeLine" d="${path}"></path>${pins}`;
+
+  // legend
+  document.getElementById('mapLegend').innerHTML=s.map((p,i)=>
+    `<button data-target="day-${p.id}"><b>${i+1}</b> ${p.place}</button>`).join('');
+
+  // route line self-draw setup
+  const line=document.getElementById('routeLine');
+  const len=line.getTotalLength();
+  line.style.strokeDasharray=len;
+  line.style.strokeDashoffset= RM?0:len;
+  line.dataset.len=len;
+  if(RM) svg.querySelectorAll('.pin').forEach(pn=>pn.classList.add('lit'));
+
+  // click-to-scroll
+  svg.querySelectorAll('.pin').forEach(pn=>pn.addEventListener('click',()=>scrollToId(pn.dataset.target)));
+  document.querySelectorAll('#mapLegend button').forEach(b=>b.addEventListener('click',()=>scrollToId(b.dataset.target)));
+}
+
+function renderTimeline(t){
+  document.getElementById('timeline').innerHTML = t.stops.map(p=>`
+    <div class="tl-item reveal" id="day-${p.id}">
+      <div class="node"></div>
+      <div class="card">
+        <div class="media">
+          <img alt="${p.place}" data-search="${p.search}" loading="lazy" src="${photoUrl(p.search,800,600)}"/>
+          <span class="dates">${p.dates}</span>
+          <span class="leg">${p.leg}</span>
+        </div>
+        <div class="body">
+          <h3>${p.place}</h3>
+          <div class="region">${p.region}</div>
+          <p>${p.blurb}</p>
+          <ul class="acts">${p.acts.map(a=>`<li>${a}</li>`).join('')}</ul>
+          <div class="tags">${p.tags.map(tg=>`<span class="tag ${tg}">${tg.replace('-',' ')}</span>`).join('')}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderGallery(t){
+  // filters from categories present
+  const cats=['all',...new Set(t.gallery.map(g=>g.cat))];
+  document.getElementById('filters').innerHTML=cats.map(c=>
+    `<button data-cat="${c}" class="${c===state.filter?'active':''}">${CAT_LABEL[c]||c}</button>`).join('');
+  // grid
+  document.getElementById('grid').innerHTML=t.gallery.map((g,i)=>`
+    <div class="cell ${i%5===0?'tall':''} ${state.filter==='all'||state.filter===g.cat?'':'hide'}"
+         data-cat="${g.cat}" data-i="${i}">
+      <img alt="${g.term}" data-search="${g.term}" loading="lazy" src="${photoUrl(g.term, i%5===0?600:600, i%5===0?900:600)}"/>
+      <span class="catchip">${CAT_LABEL[g.cat]||g.cat}</span>
+      ${g.video?'<span class="play"></span>':''}
+      <span class="cap">${g.term}</span>
+    </div>`).join('');
+  // wire filters
+  document.querySelectorAll('#filters button').forEach(b=>b.addEventListener('click',()=>{
+    state.filter=b.dataset.cat;
+    document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('active',x===b));
+    document.querySelectorAll('#grid .cell').forEach(c=>{
+      const show=state.filter==='all'||c.dataset.cat===state.filter;
+      c.classList.toggle('hide',!show);
+    });
+  }));
+  // wire lightbox
+  document.querySelectorAll('#grid .cell').forEach(c=>c.addEventListener('click',()=>openLightbox(parseInt(c.dataset.i,10))));
+}
+
+function costValue(pair,tSlider){return Math.round(pair[0]+(pair[1]-pair[0])*tSlider);}
+function fmt(n){return '£'+n.toLocaleString('en-GB');}
+
+function renderCosts(t,animate){
+  const tS=state.slider/100;
+  const cats=Object.keys(t.costs);
+  const maxComfort=Math.max(...cats.map(c=>t.costs[c][1]));
+  const total=cats.reduce((a,c)=>a+costValue(t.costs[c],tS),0);
+  // mode label
+  const mode = state.slider<34?'lean':state.slider>66?'comfort':'balanced';
+  document.getElementById('costMode').textContent=mode;
+  // range
+  const lean=cats.reduce((a,c)=>a+t.costs[c][0],0);
+  const comfort=cats.reduce((a,c)=>a+t.costs[c][1],0);
+  document.getElementById('costRange').textContent=`${fmt(lean)} – ${fmt(comfort)} pp`;
+  // breakdown
+  document.getElementById('breakdown').innerHTML=cats.map(c=>{
+    const v=costValue(t.costs[c],tS);
+    return `<div class="bd-row" data-cat="${c}">
+      <div class="top"><b>${c[0].toUpperCase()+c.slice(1)}</b><span class="val" data-target="${v}">${fmt(v)}</span></div>
+      <div class="bd-bar"><span data-w="${(v/maxComfort*100).toFixed(1)}"></span></div>
+    </div>`;
+  }).join('');
+  // total
+  const big=document.getElementById('costBig');
+  big.dataset.target=total;
+  if(animate && !RM){ countUp(big,total); }
+  else big.textContent=fmt(total);
+  // bars
+  requestAnimationFrame(()=>document.querySelectorAll('#breakdown .bd-bar span').forEach(s=>s.style.width=s.dataset.w+'%'));
+}
+function updateCostsLive(t){
+  const tS=state.slider/100;
+  const cats=Object.keys(t.costs);
+  const maxComfort=Math.max(...cats.map(c=>t.costs[c][1]));
+  const total=cats.reduce((a,c)=>a+costValue(t.costs[c],tS),0);
+  document.getElementById('costBig').textContent=fmt(total);
+  document.getElementById('costMode').textContent= state.slider<34?'lean':state.slider>66?'comfort':'balanced';
+  document.querySelectorAll('#breakdown .bd-row').forEach(row=>{
+    const c=row.dataset.cat, v=costValue(t.costs[c],tS);
+    row.querySelector('.val').textContent=fmt(v);
+    row.querySelector('.bd-bar span').style.width=(v/maxComfort*100).toFixed(1)+'%';
+  });
+}
+function countUp(el,target){
+  const dur=1100, start=performance.now();
+  function step(now){
+    const p=Math.min((now-start)/dur,1);
+    const e=1-Math.pow(1-p,3);
+    el.textContent=fmt(Math.round(target*e));
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function renderCompare(){
+  const rows=[['weather','Weather'],['vibe','Vibe'],['ease','Travel ease'],['season','Seasonality'],['cost','Cost']];
+  const html=TRIP_ORDER.map(id=>{
+    const t=TRIPS[id], active=id===state.trip;
+    return `<div class="spec ${active?'active':''}" data-trip="${id}">
+      <div class="spec-head"><span class="spec-dot"></span><h4>${t.name}</h4>${active?'<span class="tag-active">Viewing</span>':''}</div>
+      <dl>${rows.map(r=>`<div><dt>${r[1]}</dt><dd>${t.compare[r[0]]}</dd></div>`).join('')}</dl>
+      <button class="spec-pick" data-trip="${id}">${active?'★ You’re viewing this':'View this trip'}</button>
+    </div>`;
+  }).join('');
+  document.getElementById('cmp').innerHTML=html;
+  document.querySelectorAll('.spec-pick').forEach(b=>b.addEventListener('click',()=>{ if(b.dataset.trip!==state.trip) setTrip(b.dataset.trip); scrollToId('compare'); }));
+  document.getElementById('verdictText').textContent = TRIPS[state.trip].verdict;
+}
+
+function renderChecklist(t){
+  const items=checklistFor(t);
+  document.getElementById('checklist').innerHTML=items.map((it,i)=>`
+    <div class="check" data-i="${i}">
+      <div class="box"></div>
+      <div class="txt"><b>${it.b}</b><span>${it.s}</span></div>
+    </div>`).join('');
+  document.querySelectorAll('#checklist .check').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('done')));
+}
+
+/* ===========================================================================
+   LIGHTBOX  (keyboard + swipe, video-aware)
+   =========================================================================== */
+let lbIndex=0;
+function visibleCells(){return [...document.querySelectorAll('#grid .cell:not(.hide)')];}
+function openLightbox(i){
+  lbIndex=i; showLb(); document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function showLb(){
+  const g=TRIPS[state.trip].gallery[lbIndex];
+  const holder=document.getElementById('lbHolder');
+  if(g.video){
+    // swap data-video-id with a real YouTube id to embed; placeholder shown until then
+    holder.innerHTML=`<iframe class="lb-video" data-video-id="TODO_YOUTUBE_ID"
+      title="${g.term}" allow="accelerated-encoder; autoplay; encrypted-media"
+      src="about:blank"
+      style="background:url('${photoUrl(g.term,1200,800)}') center/cover"></iframe>`;
+  }else{
+    holder.innerHTML=`<img src="${photoUrl(g.term,1200,800)}" data-search="${g.term}" alt="${g.term}"/>`;
+  }
+  document.getElementById('lbCap').innerHTML=`<b>${g.term}</b> · ${CAT_LABEL[g.cat]||g.cat}${g.video?' · ▶ swap in YouTube embed id':''}`;
+}
+function lbStep(d){
+  const cells=visibleCells();
+  if(!cells.length) return;
+  const order=cells.map(c=>parseInt(c.dataset.i,10));
+  let pos=order.indexOf(lbIndex); if(pos<0) pos=0;
+  pos=(pos+d+order.length)%order.length;
+  lbIndex=order[pos]; showLb();
+}
+function closeLb(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';document.getElementById('lbHolder').innerHTML='';}
+document.getElementById('lbClose').addEventListener('click',closeLb);
+document.getElementById('lbNext').addEventListener('click',()=>lbStep(1));
+document.getElementById('lbPrev').addEventListener('click',()=>lbStep(-1));
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target.id==='lightbox')closeLb();});
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open'))return;
+  if(e.key==='Escape')closeLb(); if(e.key==='ArrowRight')lbStep(1); if(e.key==='ArrowLeft')lbStep(-1);
+});
+// swipe
+let touchX=null;
+document.getElementById('lightbox').addEventListener('touchstart',e=>touchX=e.touches[0].clientX,{passive:true});
+document.getElementById('lightbox').addEventListener('touchend',e=>{
+  if(touchX===null)return; const dx=e.changedTouches[0].clientX-touchX;
+  if(Math.abs(dx)>50) lbStep(dx<0?1:-1); touchX=null;
+});
+
+/* ===========================================================================
+   SCROLL SYSTEMS — reveal, route draw, parallax, count-up trigger
+   =========================================================================== */
+let costsAnimated=false;
+function initObservers(){
+  const io=new IntersectionObserver((ents)=>{
+    ents.forEach(en=>{
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        if(en.target.id==='costs-sentinel' && !costsAnimated){costsAnimated=true;renderCosts(TRIPS[state.trip],true);}
+      }
+    });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  const sc=document.getElementById('costs'); if(sc){sc.id='costs';}
+  // sentinel for costs count-up
+  const cbig=document.getElementById('costBig');
+  const cio=new IntersectionObserver((ents)=>{
+    ents.forEach(en=>{if(en.isIntersecting&&!costsAnimated){costsAnimated=true;renderCosts(TRIPS[state.trip],true);}});
+  },{threshold:.4});
+  cio.observe(cbig);
+}
+
+function onScroll(){
+  if(RM)return;
+  // route line draw based on map section progress
+  const box=document.getElementById('mapSvg');
+  const line=document.getElementById('routeLine');
+  if(box&&line){
+    const r=box.getBoundingClientRect();
+    const vh=window.innerHeight;
+    let prog=(vh - r.top) / (vh + r.height*0.6);
+    prog=Math.max(0,Math.min(1,prog));
+    const len=parseFloat(line.dataset.len||0);
+    line.style.strokeDashoffset=len*(1-prog);
+    document.querySelectorAll('#mapSvg .pin').forEach(pn=>{
+      if(prog>=parseFloat(pn.dataset.frac)-0.02) pn.classList.add('lit'); else pn.classList.remove('lit');
+    });
+  }
+  // hero parallax
+  const hero=document.getElementById('heroMedia');
+  if(hero){const y=window.scrollY; hero.style.transform=`translateY(${y*0.28}px) scale(${1+y*0.0002})`;}
+}
+let ticking=false;
+window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(()=>{onScroll();ticking=false;});ticking=true;}},{passive:true});
+
+function scrollToId(id){
+  const el=document.getElementById(id);
+  if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-70,behavior:RM?'auto':'smooth'});}
+}
+
+/* ===========================================================================
+   TOGGLE
+   =========================================================================== */
+function buildSelectors(){
+  const sel=document.getElementById('tripSelect');
+  const pills=document.getElementById('tripPills');
+  sel.innerHTML=TRIP_ORDER.map(id=>`<option value="${id}">${TRIPS[id].short}</option>`).join('');
+  pills.innerHTML=TRIP_ORDER.map(id=>`<button data-trip="${id}">${TRIPS[id].short}</button>`).join('');
+  sel.addEventListener('change',e=>setTrip(e.target.value));
+  pills.addEventListener('click',e=>{const b=e.target.closest('button'); if(b) setTrip(b.dataset.trip);});
+}
+function syncSelectors(){
+  const sel=document.getElementById('tripSelect');
+  if(sel) sel.value=state.trip;
+  document.querySelectorAll('#tripPills button').forEach(b=>b.classList.toggle('active',b.dataset.trip===state.trip));
+}
+function setTrip(id,fromScroll){
+  if(id===state.trip && fromScroll)return;
+  state.trip=id; state.filter='all'; costsAnimated=false;
+  const t=TRIPS[id];
+  applyTheme(t);
+  renderHero(t); renderMap(t); renderTimeline(t); renderGallery(t);
+  renderCompare(); renderChecklist(t);
+  renderCosts(t,false);
+  syncSelectors();
+  // re-observe fresh reveal elements
+  reObserve();
+  // trigger costs count-up if section already in view
+  requestAnimationFrame(()=>{onScroll();});
+}
+
+let revealIO;
+function reObserve(){
+  if(revealIO) revealIO.disconnect();
+  revealIO=new IntersectionObserver((ents)=>{
+    ents.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('in'); });
+  },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>{
+    // if already in viewport, reveal immediately
+    const r=el.getBoundingClientRect();
+    if(r.top<window.innerHeight*0.92) el.classList.add('in'); else el.classList.remove('in');
+    revealIO.observe(el);
+  });
+}
+
+document.getElementById('costSlider').addEventListener('input',e=>{
+  state.slider=parseInt(e.target.value,10);
+  updateCostsLive(TRIPS[state.trip]);
+});
+
+/* ===========================================================================
+   BOOT
+   =========================================================================== */
+function boot(){
+  buildSelectors();
+  applyTheme(TRIPS.A);
+  setTrip('A');
+  // costs count-up observer
+  const cbig=document.getElementById('costBig');
+  new IntersectionObserver((ents)=>{
+    ents.forEach(en=>{if(en.isIntersecting&&!costsAnimated){costsAnimated=true;renderCosts(TRIPS[state.trip],true);}});
+  },{threshold:.4}).observe(cbig);
+  onScroll();
+}
+document.addEventListener('DOMContentLoaded',boot);
+window.addEventListener('load',()=>{syncSelectors();onScroll();});
+</script>
+</body>
+</html>

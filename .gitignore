@@ -1,0 +1,10 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+
+# dependencies / build (none needed — this is a static single file)
+node_modules/
+
+# local dev-only tooling
+.claude/
