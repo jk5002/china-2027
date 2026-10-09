@@ -43,3 +43,10 @@ folder; `index.html` is the entry point.
 Search terms for every photo/video are in the `/* ASSETS TO SWAP */` block at the top of
 `index.html` and on each element's `data-search` attribute. Replace the URLs in the `PHOTOS`
 map, or drop real video ids into the `data-video-id="TODO_YOUTUBE_ID"` gallery tiles.
+
+## Taiwan & Beijing, October 2026
+
+[`taiwan/`](taiwan/index.html) holds a password-protected itinerary page. The content is
+encrypted in the browser with AES-GCM (key derived from the password with PBKDF2), so the
+file in this repo is unreadable without the password. Live at
+`https://jk5002.github.io/china-2027/taiwan/`.
